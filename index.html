@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuken Cases</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">KUKEN<span>CASES</span></div>
+            <div class="profile">
+                <div class="balance">₽<span id="balance">1000</span></div>
+                <div class="avatar">K</div>
+            </div>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="cases">Кейсы</div>
+            <div class="tab" data-tab="inventory">Инвентарь</div>
+        </div>
+        
+        <div class="tab-content">
+            <div class="cases-container" id="cases"></div>
+            <div class="inventory" id="inventory"></div>
+        </div>
+    </div>
+    
+    <!-- Модальные окна -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Подтверждение</h3>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="case-preview" id="casePreview"></div>
+                <div class="modal-actions">
+                    <button class="btn cancel-btn" id="cancelOpen">Отмена</button>
+                    <button class="btn open-btn" id="confirmOpen">Открыть за <span id="casePrice">100</span>₽</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="sellModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Продать предмет</h3>
+                <span class="close-btn" id="closeSellModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="item-to-sell" id="itemToSell"></div>
+                <div class="modal-actions">
+                    <button class="btn cancel-btn" id="cancelSell">Отмена</button>
+                    <button class="btn sell-btn" id="confirmSell">Продать за <span id="sellPrice">0</span>₽</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
