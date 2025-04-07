@@ -160,7 +160,7 @@ function openCase() {
             updateInventory();
             
             openBtn.disabled = false;
-        }, 7000);
+        }, 8000);
     }, 50);
 }
 

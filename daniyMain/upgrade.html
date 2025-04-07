@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Probability Roulette</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;500&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="neon-container">
+        <div class="header">
+            <h1 class="neon-text">DARK<span>ROULETTE</span></h1>
+            <p class="subtitle">Custom probability wheel</p>
+        </div>
+
+        <div class="control-panel">
+            <div class="probability-control">
+                <label for="win-chance">WIN CHANCE (%)</label>
+                <div class="input-wrapper">
+                    <input type="range" id="win-chance" min="1" max="99" value="30">
+                    <span id="win-value">30%</span>
+                </div>
+            </div>
+            <div class="display">
+                <div class="win-display">
+                    <span>WIN ZONE:</span>
+                    <span id="win-zone">0°-108°</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="wheel-container">
+            <div class="wheel" id="wheel">
+                <div class="arrow" id="arrow"></div>
+                <div class="center-dot"></div>
+                <div class="markers">
+                    <div class="marker" style="transform: rotate(0deg)"></div>
+                    <div class="marker" style="transform: rotate(90deg)"></div>
+                    <div class="marker" style="transform: rotate(180deg)"></div>
+                    <div class="marker" style="transform: rotate(270deg)"></div>
+                </div>
+            </div>
+        </div>
+
+        <button id="spin-btn" class="neon-button">
+            <span class="text">SPIN</span>
+            <span class="glow"></span>
+        </button>
+
+        <div class="result-container">
+            <div id="result" class="result-hidden">
+                <div class="result-text" id="result-text"></div>
+                <div class="result-angle" id="result-angle"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>For educational purposes only | Not a real gambling</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

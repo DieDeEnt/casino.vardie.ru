@@ -1,0 +1,23 @@
+.block1 {
+    display:flex;
+    margin:10%;
+    padding:5%;
+    justify-content: center;
+    background-color: white;
+    
+}
+
+.block2 {
+    display:flex;
+    margin:10%;
+    padding:5%;
+    justify-content: center;
+    background-color: blueviolet;
+}
+
+.textS {
+    color:black;
+    font-size: xx-large;
+    margin:100px;
+    font-family: 'Rajdhani', 'Arial Narrow', sans-serif;
+}
