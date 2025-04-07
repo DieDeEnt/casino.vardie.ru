@@ -3,68 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuken Cases</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>CS:GO Case Opening Simulator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background-color: #2a2a2a;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+            width: 90%;
+            max-width: 1200px;
+        }
+        
+        .case-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .items-track {
+            display: flex;
+            position: absolute;
+            left: 0;
+            top: 12%;
+            
+            transition: transform 5s cubic-bezier(0.1, 0.8, 0.2, 1);
+        }
+        
+        .item {
+            width: 150px;
+            height: 150px;
+            margin: 0 10px;
+            background-color: #333;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        .item:hover {
+            transform: scale(1.05);
+        }
+        
+        .item img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+        
+        .item-name {
+            margin-top: 5px;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .item-rarity {
+            font-size: 10px;
+            margin-top: 3px;
+        }
+        
+        .common { color: #b0c3d9; }
+        .uncommon { color: #5e98d9; }
+        .rare { color: #4b69ff; }
+        .mythical { color: #8847ff; }
+        .legendary { color: #d32ce6; }
+        .ancient { color: #eb4b4b; }
+        .immortal { color: #e4ae39; }
+        
+        .center-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: gold;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        
+        .center-line::before, .center-line::after {
+            content: '';
+            position: absolute;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid gold;
+            border-radius: 50%;
+        }
+        
+        .center-line::before {
+            top: 20px;
+        }
+        
+        .center-line::after {
+            bottom: 20px;
+        }
+        
+        .open-btn {
+            padding: 15px 40px;
+            background: linear-gradient(to right, #f5af19, #f12711);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(241, 39, 17, 0.4);
+        }
+        
+        .open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(241, 39, 17, 0.6);
+        }
+        
+        .open-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .inventory {
+            margin-top: 40px;
+            width: 100%;
+        }
+        
+        .inventory h2 {
+            border-bottom: 2px solid #444;
+            padding-bottom: 10px;
+        }
+        
+        .inventory-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stats {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .stat-box {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f5af19;
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <h1>CS:GO CASE OPENING SIMULATOR</h1>
+    </div>
+    
     <div class="container">
-        <header>
-            <div class="logo">KUKEN<span>CASES</span></div>
-            <div class="profile">
-                <div class="balance">₽<span id="balance">1000</span></div>
-                <div class="avatar">K</div>
-            </div>
-        </header>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="cases">Кейсы</div>
-            <div class="tab" data-tab="inventory">Инвентарь</div>
+        <div class="case-container">
+            <div class="center-line"></div>
+            <div class="items-track" id="itemsTrack"></div>
         </div>
         
-        <div class="tab-content">
-            <div class="cases-container" id="cases"></div>
-            <div class="inventory" id="inventory"></div>
+        <button class="open-btn" id="openBtn">OPEN</button>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div>BALANCE</div>
+                <div class="stat-value" id="balance">1000</div>
+            </div>
+            <div class="stat-box">
+                <div>CASES OPENED</div>
+                <div class="stat-value" id="casesOpened">0</div>
+            </div>
+            <div class="stat-box">
+                <div>TOTAL VALUE</div>
+                <div class="stat-value" id="totalValue">0</div>
+            </div>
+        </div>
+        
+        <div class="inventory">
+            <h2>YOUR INVENTORY</h2>
+            <div class="inventory-items" id="inventory"></div>
         </div>
     </div>
     
-    <!-- Модальные окна -->
-    <div class="modal" id="confirmModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Подтверждение</h3>
-                <span class="close-btn" id="closeModal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="case-preview" id="casePreview"></div>
-                <div class="modal-actions">
-                    <button class="btn cancel-btn" id="cancelOpen">Отмена</button>
-                    <button class="btn open-btn" id="confirmOpen">Открыть за <span id="casePrice">100</span>₽</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal" id="sellModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Продать предмет</h3>
-                <span class="close-btn" id="closeSellModal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="item-to-sell" id="itemToSell"></div>
-                <div class="modal-actions">
-                    <button class="btn cancel-btn" id="cancelSell">Отмена</button>
-                    <button class="btn sell-btn" id="confirmSell">Продать за <span id="sellPrice">0</span>₽</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <audio id="clickSound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
-    <script src="script.js"></script>
+    <script>
+        // Данные предметов
+        const items = [
+            { name: "P250 | Sand Dune", rarity: "common", price: 0.5, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpopujwezhz3MzbcDNG09C_k4if2fSjZLmGwDkBsZZz3r6Zo4mliwTj-0BtZDz1dYSUcAdtYw3XqFXtyejxxcjrr8fSJ40" },
+            { name: "Glock-18 | Groundwater", rarity: "common", price: 0.7, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposbaqKAxfwPz3fjFL-tmJmImMn-O6YrrXxWoJvJMp2euQ892n21DkqRBtZGryLdKUdg85aAqG_QC_w-_ugIj84sq2hgy4GQ" },
+            { name: "USP-S | Forest Leaves", rarity: "common", price: 0.8, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpoo6m1FBRp3_bGcjhQ08-mq4yOluHxIITdn2xZ_Itw3bjCrYj23AzmrRY9ZziidYfGdFQ7MlnR_wS9xu6-gsO9v5mdnSQ3pGB8stw9ewh8" },
+            { name: "Desert Eagle | Urban Rubble", rarity: "uncommon", price: 2.5, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgposr-kLAtl7PvRTitD_tW1lY2EqOLmMbrfqWdY781lxOiYotWkjATk_0VuY2-lLI6VegNoYwzQ8lS-lL3qgpHvusvMyncyvic8pSGK-KHzzSg" },
+            { name: "AK-47 | Elite Build", rarity: "uncommon", price: 3.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot7HxfDhjxszJemkV09G3h5SOhe7LP7LWnn8fvJYh3-qR942higTmqBZpYGild4adIQQ5ZA6B_AC3lebo0ce-78vOnGwj5HeAJ9sV6g" },
+            { name: "M4A4 | Dragon King", rarity: "rare", price: 8.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpou-6kejhjxszFJTwW0924l4WYg-X1P4Tdn2xZ_ItyiO2Yot-n3gztrUduMW6icdWcc1RqM1HR_FfswLu6gZe4tZrNmiBkpGB8smM7Zio1" },
+            { name: "AWP | Worm God", rarity: "rare", price: 10.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAZx7PLfYQJW-9W4kb-HnvD8J_XXzzwH65EgiLHHrNutjAa28xdtYG7wINCUdlA4ZFDW81m8lebqjMC9ot2XnlThvpXE" },
+            { name: "Karambit | Damascus Steel", rarity: "mythical", price: 150.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf2PLacDBA5ciJlZG0k_b5MqjSg3hu5Mx2gv2Podv03wKy_EtqMGjzcNXBelM-MgmCqAe5le6508fp75TKnCNqsyYitGGdwUJqhGR_eA" },
+            { name: "Butterfly Knife | Crimson Web", rarity: "legendary", price: 350.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpovbSsLQJf0ebcZThQ6tCvq4iSqODxMajummJW4NE_0uyS9N-j3gy180Vrazj3d9OQdFQ8Z1_VqVe-lem61pDtu5jPwXBk6z5iuyhUtHBvlA" },
+            { name: "AWP | Medusa", rarity: "ancient", price: 500.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17P7NdShR7eO3g5C0m_7zO6-fxj5SvsMkib-W9N7zilLjr0NoYW_wI4OTelRvYwmC-FTrxeq915a074OJlyVOUzvCjQ" },
+            { name: "Dragon Lore | AWP", rarity: "immortal", price: 2000.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17P7NdTRH-t26q4SZlvD7PYTQgXtu5Mx2gv2P9o6migzl_Us5ZmCmLYDDJgU9NA6B81S5yezvg8e-7cycnXJgvHZx5WGdwUJqz1Tl4g" },
+           
+        ];
+
+        // Инициализация трека с предметами
+        const itemsTrack = document.getElementById('itemsTrack');
+        const inventory = document.getElementById('inventory');
+        const openBtn = document.getElementById('openBtn');
+        const balanceEl = document.getElementById('balance');
+        const casesOpenedEl = document.getElementById('casesOpened');
+        const totalValueEl = document.getElementById('totalValue');
+        
+        let balance = 1000;
+        let casesOpened = 0;
+        let totalValue = 0;
+        let userItems = [];
+        
+        // Создаем трек с предметами (дублируем для бесконечного списка)
+        function initItemsTrack() {
+            itemsTrack.innerHTML = '';
+            
+            // Дублируем массив предметов несколько раз для эффекта бесконечности
+            const multipliedItems = [
+                ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items,
+                // ...items, ...items, ...items, ...items, ...items, ...items, ...items, ...items, 
+
+
+
+            ];
+            
+            multipliedItems.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = `item ${item.rarity}`;
+                itemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-rarity ${item.rarity}">$${item.price.toFixed(2)}</div>
+                `;
+                itemsTrack.appendChild(itemEl);
+            });
+        }
+        
+        // Открытие кейса
+        function openCase() {
+            if (balance < 10) {
+                alert("Not enough credits!");
+                return;
+            }
+            
+            balance -= 10;
+            balanceEl.textContent = balance;
+            
+            openBtn.disabled = true;
+            
+            // Определяем выигрышный предмет (с разными шансами)
+            const random = Math.random();
+            let winningItem;
+            
+            if (random < 0.5) {
+                // 50% шанс на common
+                winningItem = items[Math.floor(Math.random() * 3)];
+            } else if (random < 0.8) {
+                // 30% шанс на uncommon
+                winningItem = items[3 + Math.floor(Math.random() * 2)];
+            } else if (random < 0.95) {
+                // 15% шанс на rare
+                winningItem = items[5 + Math.floor(Math.random() * 2)];
+            } else if (random < 0.99) {
+                // 4% шанс на mythical
+                winningItem = items[7];
+            } else if (random < 0.999) {
+                // 0.9% шанс на legendary
+                winningItem = items[8];
+            } else {
+                // 0.1% шанс на ancient/immortal
+                winningItem = items[9];
+            }
+            
+            // Находим индекс выигрышного предмета в треке
+            const winningIndex = [...itemsTrack.children].findIndex(
+                item => item.querySelector('.item-name').textContent === winningItem.name
+            );
+            
+            // Анимация прокрутки
+            const trackWidth = itemsTrack.offsetWidth;
+            const containerWidth = document.querySelector('.case-container').offsetWidth;
+            const targetPosition = -(winningIndex * 170) + (containerWidth / 2) - 85;
+            
+            // Начальная позиция (быстрая прокрутка)
+            itemsTrack.style.transition = 'transform 0.1s';
+            itemsTrack.style.transform = `translateX(${-trackWidth / 2}px)`;
+            
+            // Даем время для рендера
+            setTimeout(() => {
+                // Медленная прокрутка к выигрышному предмету
+                itemsTrack.style.transition = 'transform 7.4s cubic-bezier(0.1, 0.8, 0.2, 1)';
+                itemsTrack.style.transform = `translateX(${targetPosition}px)`;
+                
+                // По завершении анимации
+                setTimeout(() => {
+                    // Добавляем предмет в инвентарь
+                    userItems.push(winningItem);
+                    totalValue += winningItem.price;
+                    casesOpened++;
+                    
+                    // Обновляем статистику
+                    casesOpenedEl.textContent = casesOpened;
+                    totalValueEl.textContent = totalValue.toFixed(2);
+                    
+                    // Обновляем инвентарь
+                    updateInventory();
+                    
+                    openBtn.disabled = false;
+                }, 7500);
+            }, 50);
+        }
+        
+        // Обновление инвентаря
+        function updateInventory() {
+            inventory.innerHTML = '';
+            
+            userItems.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = `item ${item.rarity}`;
+                itemEl.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-rarity ${item.rarity}">$${item.price.toFixed(2)}</div>
+                `;
+                inventory.appendChild(itemEl);
+            });
+        }
+        
+        // Инициализация
+        initItemsTrack();
+        openBtn.addEventListener('click', openCase);
+    </script>
 </body>
 </html>

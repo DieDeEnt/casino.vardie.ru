@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Case Simulator</title>
+    <style>
+        :root {
+            --bg-dark: #0D0F12;
+            --bg-light: #1A1D23;
+            --accent-blue: #2F8AF5;
+            --accent-orange: #FF6B00;
+            --text-primary: #E6E8EC;
+            --text-secondary: #848A99;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 20px;
+        }
+
+        /* Сайдбар */
+        .sidebar {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .filter-item:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Основной контент */
+        .main-content {
+            display: grid;
+            gap: 20px;
+        }
+
+        /* Шапка */
+        .header {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2A2D35;
+            overflow: hidden;
+        }
+
+        .balance {
+            background: rgba(47,138,245,0.15);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        /* Кейс */
+        .case-container {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case-preview {
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .case-lid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+
+        .case-opening .case-lid {
+            transform: rotateX(-120deg);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Предмет */
+        .item-card {
+            background: #191C22;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            padding: 15px;
+            background: linear-gradient(45deg, #1F2229 0%, #2A2D35 100%);
+        }
+
+        .item-details {
+            padding: 15px;
+            border-top: 1px solid #2A2D35;
+        }
+
+        .item-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            color: var(--accent-orange);
+            font-weight: 500;
+        }
+
+        /* Редкости */
+        .rarity-stripe {
+            height: 4px;
+            background: #2F8AF5;
+        }
+
+        .common .rarity-stripe { background: #5B6876; }
+        .uncommon .rarity-stripe { background: #2F8AF5; }
+        .rare .rarity-stripe { background: #8847FF; }
+        .mythical .rarity-stripe { background: #D32CE6; }
+        .legendary .rarity-stripe { background: #FF5555; }
+        .ancient .rarity-stripe { background: #EB4B4B; }
+        .immortal .rarity-stripe { background: #E4AE39; }
+
+        /* Кнопки */
+        .open-btn {
+            background: var(--accent-blue);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .open-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(47,138,245,0.3);
+        }
+
+        .sell-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,107,0,0.9);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .item-card:hover .sell-btn {
+            opacity: 1;
+        }
+
+        /* Анимации */
+        @keyframes caseOpen {
+            0% { transform: rotateX(0); }
+            50% { transform: rotateX(-120deg); }
+            100% { transform: rotateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Фильтры</h3>
+                <div class="filter-item">Все предметы</div>
+                <div class="filter-item">Пистолеты</div>
+                <div class="filter-item">Ножи</div>
+                <div class="filter-item">Винтовки</div>
+            </div>
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Редкость</h3>
+                <div class="filter-item">Common</div>
+                <div class="filter-item">Uncommon</div>
+                <div class="filter-item">Rare</div>
+                <div class="filter-item">Mythical</div>
+                <div class="filter-item">Legendary</div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="profile">
+                    <div class="avatar"></div>
+                    <div>
+                        <div class="user-name">Player</div>
+                        <div class="user-level">Level 1</div>
+                    </div>
+                </div>
+                <div class="balance">Баланс: 1000 ₽</div>
+            </header>
+
+            <section class="case-container">
+                <div class="case-preview">
+                    <div class="case-lid">
+                        <img src="https://cs.money/images/case.png" alt="Case">
+                    </div>
+                </div>
+                <button class="open-btn">Открыть кейс за 10 ₽</button>
+            </section>
+
+            <section class="inventory">
+                <h2>Инвентарь</h2>
+                <div class="items-grid" id="inventory">
+                    <!-- Предметы будут здесь -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const items = [
+            { id: 1, name: "P250 | Sand Dune", type: "Пистолет", rarity: "common", price: 0.5, image: "https://cdn.csmoney.ru/items/730/ImageInventory_730_P250_Sp_05.png" },
+            { id: 2, name: "Glock-18 | Groundwater", type: "Пистолет", rarity: "common", price: 0.7, image: "https://cdn.csmoney.ru/items/730/ImageInventory_730_Glock_Sp_01.png" },
+            { id: 3, name: "AK-47 | Elite Build", type: "Винтовка", rarity: "uncommon", price: 3.0, image: "https://cdn.csmoney.ru/items/730/ImageInventory_730_AK47_Sp_02.png" },
+            { id: 4, name: "AWP | Worm God", type: "Снайперская", rarity: "rare", price: 10.0, image: "https://cdn.csmoney.ru/items/730/ImageInventory_730_AWP_Sp_03.png" },
+            { id: 5, name: "Karambit | Damascus", type: "Нож", rarity: "mythical", price: 150.0, image: "https://cdn.csmoney.ru/items/730/ImageInventory_730_Knife_karambit_Sp_01.png" },
+            { id: 6, name: "Dragon Lore", type: "Снайперская", rarity: "immortal", price: 2000.0, image: "https://steamcommunity-a.akamaihd.net/economy/image/-9a81dlWLwJ2UUGcVs_nsVtzdOEdtWwKGZZLQHTxDZ7I56KU0Zwwo4NUX4oFJZEHLbXH5ApeO4YmlhxYQknCRvCo04DEVlxkKgpot621FAR17P7NdTRH-t26q4SZlvD7PYTQgXtu5Mx2gv2P9o6migzl_Us5ZmCmLYDDJgU9NA6B81S5yezvg8e-7cycnXJgvHZx5WGdwUJqz1Tl4g" }
+        ];
+
+        let balance = 1000;
+        let userItems = [];
+
+        function openCase() {
+            if (balance < 10) return;
+            
+            balance -= 10;
+            document.querySelector('.balance').textContent = `Баланс: ${balance} ₽`;
+            
+            const rarities = ['common', 'common', 'uncommon', 'rare', 'mythical', 'immortal'];
+            const probabilities = [0.5, 0.3, 0.15, 0.04, 0.009, 0.001];
+            const random = Math.random();
+            
+            let selectedRarity = 'common';
+            probabilities.reduce((acc, prob, i) => {
+                if (random < acc + prob) selectedRarity = rarities[i];
+                return acc + prob;
+            }, 0);
+
+            const filteredItems = items.filter(item => item.rarity === selectedRarity);
+            const wonItem = filteredItems[Math.floor(Math.random() * filteredItems.length)];
+            
+            userItems.push(wonItem);
+            updateInventory();
+            animateCaseOpening(wonItem);
+        }
+
+        function updateInventory() {
+            const inventory = document.getElementById('inventory');
+            inventory.innerHTML = userItems.map(item => `
+                <div class="item-card ${item.rarity}">
+                    <div class="rarity-stripe"></div>
+                    <img class="item-image" src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">${item.price.toFixed(2)} ₽</div>
+                    </div>
+                    <button class="sell-btn" onclick="sellItem(${userItems.indexOf(item)})">Продать</button>
+                </div>
+            `).join('');
+        }
+
+        function animateCaseOpening(item) {
+            const caseLid = document.querySelector('.case-lid');
+            caseLid.style.transform = 'rotateX(-120deg)';
+            
+            setTimeout(() => {
+                caseLid.style.transform = 'rotateX(0)';
+                alert(`Вы выиграли: ${item.name}`);
+            }, 1000);
+        }
+
+        function sellItem(index) {
+            balance += userItems[index].price;
+            userItems.splice(index, 1);
+            document.querySelector('.balance').textContent = `Баланс: ${balance} ₽`;
+            updateInventory();
+        }
+
+        document.querySelector('.open-btn').addEventListener('click', openCase);
+        updateInventory();
+    </script>
+</body>
+</html>
