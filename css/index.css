@@ -1,17 +1,18 @@
 .block1 {
     display:flex;
-    margin:10%;
-    padding:5%;
+    margin: 10px;
+    padding:5px;
     justify-content: center;
     background-color: white;
+    flex-wrap: wrap;
     
 }
 
 .block2 {
     display:flex;
-    margin:10%;
-    padding:5%;
-    justify-content: center;
+    margin:10px;
+    padding:5px;
+    flex-wrap: wrap;
     background-color: blueviolet;
 }
 
