@@ -1,3 +1,4 @@
+<?php phpinfo(); ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
