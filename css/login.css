@@ -1,0 +1,117 @@
+@media (min-width: 500px){
+    main {
+        width: 100%;
+    }
+
+    header {
+        padding-top: 40px;
+        padding-bottom: 25px;
+    }
+
+    .buttonSuccess {
+        font-size: medium;
+        padding: 6px 12px;
+    }
+
+    .mainText {
+        font-size: 30px;
+    }
+}
+
+/* PHONE */
+@media (max-width: 500px){
+    main {
+        width: 90%;
+    }
+
+    header {
+        padding-top: 15%;
+        padding-bottom: 8%;
+    }
+
+    .logo {
+        height: 100px;
+        width: 100px;
+    }
+
+    .buttonSuccess {
+        font-size: 20px;
+        padding: 6px 12px;
+    }
+
+    .mainText {
+        font-size: 40px;
+    }
+
+}
+
+header {
+    position:relative;
+    width:100%; 
+    text-align: center;
+}  
+
+main {
+    max-width: 320px;
+    padding-right:16px;
+    padding-left:16px;
+    margin-right:auto;
+    margin-left: auto;
+}
+
+.mainTextConteiner {
+    text-align: center;
+    padding-bottom: 32px;
+
+}
+
+.block {
+    background-color: var(--bgColor-darkGray);
+    border: 1px solid var(--borderColor-default-gray);
+    border-radius: 7px;
+    padding: 16px;
+}
+
+.switchPageMenu {
+    background-color: var(--bgColor-veryDarkBlue);
+    border: 1px solid var(--borderColor-default-gray);
+    border-radius: 7px;
+    margin-top: 24px;
+    padding: 16px; 
+    text-align: center;
+}
+
+/* INPUT */
+
+.buttonSuccess {
+    color: var(--bgColor-veryLightPurpule);
+    background-color: var(--bgColor-purpule);
+    outline: none;
+    width: 100%;
+    margin-top: 24px;
+    border:none;
+    border-radius: 7px;
+}
+
+    .buttonSuccess:hover {
+        background-color: var(--bgColor-veryLightPurpule);
+        color: var(--bgColor-veryDarkBlue);
+        transition: var(--time-focus);
+    }
+
+.inputType {
+    width:100%;
+    margin-top: 4px;
+    /* margin-bottom: 8px; */
+    padding: 5px 12px;
+    background-color: var(--bgColor-veryDarkBlue);
+    border:none;
+    border-radius: 7px;
+    color: var(--bgColor-purpule);
+}
+
+    .inputType:focus {
+        outline: 1px solid var(--bgColor-purpule);
+    }
+
+
