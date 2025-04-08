@@ -50,7 +50,15 @@ if (!password_verify($password, $user['password'])) {
     redirect('/loginPage.php');
 }
 
-addItemToInventory(20);
+
+
+
+try {
+    addItemToInventory(20);
+    echo "Предмет (ID: $itemId) добавлен в инвентарь!";
+} catch (PDOException $e) {
+    echo "Ошибка: " . $e->getMessage();
+}
 
 $_SESSION['user']['id'] = $user['id'];
 emailConfirm($usernameOrEmail);
