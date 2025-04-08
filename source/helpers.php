@@ -73,7 +73,7 @@
         }
 
         if(!isset($_SESSION['user']['id'])){
-            redirect('/');
+            redirect('/loginPage.php');
         }
 
         $userId = $_SESSION['user']['id'] ?? null;
@@ -89,7 +89,7 @@
 
     function authUser() : void{
         if(!isset($_SESSION['user']['id'])){
-            redirect('/');
+            redirect('/loginPage.php');
         }
     }
 
@@ -102,7 +102,7 @@
     function logout()
     {
         unset($_SESSION['user']['id']);
-        redirect('/');
+        redirect('/loginPage.php');
     }
 
 
@@ -139,24 +139,49 @@
 		}
     }
 
-    function addItem($tableName, $columnName, $itemName, $itemImageUrl, $itemBasePrice, $itemRarity, $itemType)
+    // function addItemToInventory($tableName, $columnName, $itemName, $itemImageUrl, $itemBasePrice, $itemRarity, $itemType)
+    // {
+    //     $itemName = $_POST['name'];
+    //     $itemRarity = $_POST['rarity'];
+    //     $itemType = $_POST['type'];
+    //     $itemImageUrl = $_POST['imageUrl'];
+    //     $itemBasePrice = $_POST['basePrice'];
+
+    //     $pdo = setPDO();
+    //     $stmt = $pdo->prepare("
+    //         INSERT INTO items 
+    //         (name, rarity, type, imageUrl, basePrice)
+    //         VALUES (?, ?, ?, ?, ?)
+    //     ");
+    //     $stmt->execute([$itemName, $itemRarity, $itemType, $itemImageUrl, $itemBasePrice]);
+    //     echo "Предмет добавлен!";
+    // }
+
+    function addItemToInventory($tableName, $columnName, $user, $itemId)
     {
-        // Пример PHP-кода для добавления предмета
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $itemName = $_POST['name'];
-            $itemRarity = $_POST['rarity'];
-            $itemType = $_POST['type'];
-            $itemImageUrl = $_POST['imageUrl'];
-            $itemBasePrice = $_POST['basePrice'];
-            $pdo = setPDO();
-            $stmt = $pdo->prepare("
-                INSERT INTO items 
-                (name, rarity, type, imageUrl, basePrice)
-                VALUES (?, ?, ?, ?, ?)
-            ");
-            $stmt->execute([$itemName, $itemRarity, $itemType, $itemImageUrl, $itemBasePrice]);
-            echo "Предмет добавлен!";
+        // Подключение к базе данных
+        $pdo = setPDO();
+
+            // // Данные предмета
+            $userId = 0; // ID пользователя из сессии
+            $itemId = 20;
+        
+        // Подготовленный запрос для защиты от SQL-инъекций
+        $stmt = $pdo->prepare("
+            INSERT INTO userInventory 
+            (userId, itemId)
+            VALUES (?, ?)
+        ");
+        
+        // Выполнение запроса
+        try {
+            $stmt->execute([$userId, $itemId]);
+            echo "Предмет добавлен в инвентарь!";
+        } catch (PDOException $e) {
+            echo "Ошибка: " . $e->getMessage();
         }
     }
+
+
 
 ?>
