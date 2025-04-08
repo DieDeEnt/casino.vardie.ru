@@ -9,7 +9,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page Name -->
     <title>Home</title>
+    <!-- Page Logo -->
+    <link rel="shortcut icon" href="/icon/logo.png" type="image/png" />
+
+    <!-- main.css -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- normalize.css -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <!-- case.css -->
+    <link rel="stylesheet" type="text/css" href="/css/case.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div>
