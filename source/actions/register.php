@@ -59,7 +59,7 @@
 	
 
 	$pdo = setPDO();
-
+	
 	// check duplicates email
 	$query = $pdo->prepare("SELECT 1 FROM users WHERE email =:email LIMIT 1");
 	$query->bindValue(':email', $email);

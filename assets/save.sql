@@ -11,13 +11,6 @@
       loseMoney FLOAT DEFAULT(0),
       password VARCHAR(255) NOT NULL
   );
-
-
-  CREATE TABLE users (
-      id INT PRIMARY KEY AUTO_INCREMENT,
-      username VARCHAR(50) UNIQUE NOT NULL,
-      balance DECIMAL(40,2) DEFAULT 0.00  -- Деньги на счету
-  );
   
 
 
