@@ -157,14 +157,13 @@
     //     echo "Предмет добавлен!";
     // }
 
-    function addItemToInventory($itemId)
+    function addItemToInventory($user, $itemId)
     {
         // Подключение к базе данных
         $pdo = setPDO();
 
             // // Данные предмета
-            $userId = 1; // ID пользователя из сессии
-            $itemId = 20;
+            $userId = $user["id"]; // ID пользователя из сессии
         
         // Подготовленный запрос для защиты от SQL-инъекций
         $stmt = $pdo->prepare("
@@ -186,7 +185,7 @@
     {
         $pdo = setPDO();
                 // Получение ID пользователя (например, из сессии)
-        $userId = $user['id'];
+        $userId = $user["id"];
 
         // Запрос к базе данных
         $stmt = $pdo->prepare("

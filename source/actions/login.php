@@ -59,7 +59,7 @@ $_SESSION['user']['id'] = $user['id'];
 
 emailConfirm($usernameOrEmail);
 
-addItemToInventory(20);
+addItemToInventory($user,rand(1,2040));
 
 
 redirect('/homePage.php');
