@@ -53,6 +53,11 @@ if (!password_verify($password, $user['password'])) {
 
 
 
+
+
+$_SESSION['user']['id'] = $user['id'];
+emailConfirm($usernameOrEmail);
+
 try {
     addItemToInventory(20);
     echo "Предмет (ID: $itemId) добавлен в инвентарь!";
@@ -60,8 +65,7 @@ try {
     echo "Ошибка: " . $e->getMessage();
 }
 
-$_SESSION['user']['id'] = $user['id'];
-emailConfirm($usernameOrEmail);
+
 redirect('/homePage.php');
 
     // $pdo = null;
