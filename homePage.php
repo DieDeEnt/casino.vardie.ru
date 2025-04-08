@@ -15,7 +15,7 @@
     <div>
         <?php 
             echo $user['id'];
-            echo $item['image_url'];
+            
         ?>
     </div>
     <div>
@@ -43,9 +43,9 @@
         // Вывод данных в HTML
         foreach ($inventory as $item) {
             echo '<div class="item">';
-            echo '<img src="' . htmlspecialchars($item['image_url']) . '">';
+            echo '<img src="' . htmlspecialchars($item['imageUrl']) . '">';
             echo '<h3>' . htmlspecialchars($item['name']) . '</h3>';
-            echo '<p>Float: ' . $item['float_value'] . '</p>';
+            echo '<p>Float: ' . $item['floatValue'] . '</p>';
             echo '<p>Quality: ' . $item['quality'] . '</p>';
             echo '</div>';
         }
