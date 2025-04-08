@@ -77,6 +77,7 @@ function initItemsTrack() {
             <img src="${item.image}" alt="${item.name}">
             <div class="item-name">${item.name}</div>
             <div class="item-rarity ${item.rarity}">$${item.price.toFixed(2)}</div>
+           
         `;
         itemsTrack.appendChild(itemEl);
     });
@@ -175,6 +176,7 @@ function updateInventory() {
             <img src="${item.image}" alt="${item.name}">
             <div class="item-name">${item.name}</div>
             <div class="item-rarity ${item.rarity}">$${item.price.toFixed(2)}</div>
+            
         `;
         inventory.appendChild(itemEl);
     });

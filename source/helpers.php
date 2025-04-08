@@ -29,7 +29,7 @@
         echo $message;
     }
 
-    function setOldValue(string $key, mixed $value):void 
+    function setOldValue(string $key, mixed $value)
     {
         $_SESSION['old'][$key] = $value;
     }
@@ -137,6 +137,26 @@
 		{
 			die("Connection error: {$e->getMessage()}");
 		}
+    }
+
+    function addItem($tableName, $columnName, $itemName, $itemImageUrl, $itemBasePrice, $itemRarity, $itemType)
+    {
+        // Пример PHP-кода для добавления предмета
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $itemName = $_POST['name'];
+            $itemRarity = $_POST['rarity'];
+            $itemType = $_POST['type'];
+            $itemImageUrl = $_POST['imageUrl'];
+            $itemBasePrice = $_POST['basePrice'];
+            $pdo = setPDO();
+            $stmt = $pdo->prepare("
+                INSERT INTO items 
+                (name, rarity, type, imageUrl, basePrice)
+                VALUES (?, ?, ?, ?, ?)
+            ");
+            $stmt->execute([$itemName, $itemRarity, $itemType, $itemImageUrl, $itemBasePrice]);
+            echo "Предмет добавлен!";
+        }
     }
 
 ?>
