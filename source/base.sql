@@ -24,7 +24,6 @@
   CREATE TABLE items (
       id INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(100) NOT NULL,          -- "AK-47 | Красная линия"
-      imageUrl VARCHAR(255),
       basePrice DECIMAL(40,2),           -- Базовая стоимость
       rarity ENUM(
         'Consumer Grade',
@@ -101,7 +100,8 @@
         'G3SG1',
         'SCAR-20',
         'Zeus x27'
-      )
+      ),
+      imageUrl VARCHAR(255)
   );
 
 
