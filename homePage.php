@@ -12,7 +12,12 @@
     <title>Home</title>
 </head>
 <body>
-    <div><?php echo $user['id']?></div>
+    <div>
+        <?php 
+            echo $user['id'];
+            echo $item['image_url'];
+        ?>
+    </div>
     <div>
         <?php 
                 $pdo = setPDO();
