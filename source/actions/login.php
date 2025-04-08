@@ -58,12 +58,12 @@ if (!password_verify($password, $user['password'])) {
 $_SESSION['user']['id'] = $user['id'];
 emailConfirm($usernameOrEmail);
 
-// try {
-//     addItemToInventory(20);
-//     echo "Предмет (ID: $itemId) добавлен в инвентарь!";
-// } catch (PDOException $e) {
-//     echo "Ошибка: " . $e->getMessage();
-// }
+try {
+    addItemToInventory(20);
+    echo "Предмет (ID: $itemId) добавлен в инвентарь!";
+} catch (PDOException $e) {
+    echo "Ошибка: " . $e->getMessage();
+}
 
 
 redirect('/homePage.php');
