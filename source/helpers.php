@@ -168,7 +168,7 @@
         
         // Подготовленный запрос для защиты от SQL-инъекций
         $stmt = $pdo->prepare("
-            INSERT INTO userInventory 
+            INSERT INTO usersInventory 
             (userId, itemId)
             VALUES (?, ?)
         ");

@@ -53,10 +53,10 @@ if (!password_verify($password, $user['password'])) {
 
 
 
-addItemToInventory(20);
+
 
 $_SESSION['user']['id'] = $user['id'];
-addItemToInventory(20);
+
 emailConfirm($usernameOrEmail);
 
 addItemToInventory(20);
