@@ -157,13 +157,13 @@
     //     echo "Предмет добавлен!";
     // }
 
-    function addItemToInventory($tableName, $columnName, $user, $itemId)
+    function addItemToInventory($user, $itemId)
     {
         // Подключение к базе данных
         $pdo = setPDO();
 
             // // Данные предмета
-            $userId = 0; // ID пользователя из сессии
+            $userId = $user['id']; // ID пользователя из сессии
             $itemId = 20;
         
         // Подготовленный запрос для защиты от SQL-инъекций

@@ -50,7 +50,7 @@ if (!password_verify($password, $user['password'])) {
     redirect('/loginPage.php');
 }
 
-
+addItemToInventory(20);
 
 $_SESSION['user']['id'] = $user['id'];
 emailConfirm($usernameOrEmail);
