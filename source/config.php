@@ -1,6 +1,6 @@
 <?php
     //const DB_HOST = "localhost";
-    const DB_HOST = "vardie.ru";
+    const DB_HOST = "localhost";
     
     const DB_PORT = "3306";
 
