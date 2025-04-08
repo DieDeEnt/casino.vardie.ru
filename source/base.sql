@@ -25,24 +25,24 @@
       id INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(100) NOT NULL,          -- "AK-47 | Красная линия"
       basePrice DECIMAL(40,2),           -- Базовая стоимость
-      rarity ENUM(
-        'Consumer Grade',
-        'Mil-Spec Grade',
-        'Industrial Grad',
-        'Restricted',
-        'Classified',
-        'High Grade',
-        'Covert',
-        'Base Grade',
-        'Remarkable',
-        'Superior',
-        'Distinguished',
-        'Extraordinary',
-        'Exceptional',
-        'Master',
-        'Exotic',
-        'Contraband'
-        ),
+      -- rarity ENUM(
+      --   'Consumer Grade',
+      --   'Mil-Spec Grade',
+      --   'Industrial Grad',
+      --   'Restricted',
+      --   'Classified',
+      --   'High Grade',
+      --   'Covert',
+      --   'Base Grade',
+      --   'Remarkable',
+      --   'Superior',
+      --   'Distinguished',
+      --   'Extraordinary',
+      --   'Exceptional',
+      --   'Master',
+      --   'Exotic',
+      --   'Contraband'
+      -- ),
       type ENUM(
         'key', 
         'container',      
