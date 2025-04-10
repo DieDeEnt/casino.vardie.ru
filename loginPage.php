@@ -77,16 +77,16 @@
             </form>
         </div>
         <div class="switchPageMenu">
-            <a href="message.php">Where to get the Devcode?</a>
+            <a href="text/message.php">Where to get the Devcode?</a>
             <p class="mt-8">New to Site? <a href="registerPage.php">Create account</a></p>
         </div>
     </main>
     <footer>
         <ul>
-            <li><a href="/casinoPage.php" class="footer-text">Info</a></li>
-            <li><a href="/loginPage.php" class="footer-text">Sign in</a></li>
-            <li><a href="/index.php" class="footer-text">Public</a></li>
-            <li><a href="/source/actions/ga.php" class="footer-text">Scrambled it to make a type</a></li>
+            <li><a href="#" class="footer-text">Info</a></li>
+            <li><a href="#" class="footer-text">Public</a></li>
+            <li><a href="text\privacyPolicy.php" class="footer-text">Privacy Policy</a></li>
+            <li><a href="text\termsOfService.php" class="footer-text">Terms of service</a></li>
         </ul>
     </footer>
     <script src="js/main.js"></script>

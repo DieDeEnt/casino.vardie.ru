@@ -35,10 +35,10 @@
     </main>
     <footer>
         <ul>
-            <li><a href="/info.php" class="footer-text">Info</a></li>
-            <li><a href="/loginPage.php" class="footer-text">Sign in</a></li>
-            <li><a href="/index.php" class="footer-text">Public</a></li>
-            <li><a href="#" class="footer-text">Scrambled it to make a type</a></li>
+            <li><a href="#" class="footer-text">Info</a></li>
+            <li><a href="#" class="footer-text">Public</a></li>
+            <li><a href="text\privacyPolicy.php" class="footer-text">Privacy Policy</a></li>
+            <li><a href="text\termsOfService.php" class="footer-text">Terms of service</a></li>
         </ul>
     </footer>
     <script src="js/main.js"></script>
