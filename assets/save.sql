@@ -12,91 +12,34 @@
       password VARCHAR(255) NOT NULL
   );
   
-
+"name","price","rarity","type","wear","souvenir","imgURL"
 
   CREATE TABLE items (
       id INT PRIMARY KEY AUTO_INCREMENT,
-      name VARCHAR(100) NOT NULL,          -- "AK-47 | Красная линия"
-      basePrice DECIMAL(40,2),           -- Базовая стоимость
-      -- rarity ENUM(
-      --   'Consumer Grade',
-      --   'Mil-Spec Grade',
-      --   'Industrial Grad',
-      --   'Restricted',
-      --   'Classified',
-      --   'High Grade',
-      --   'Covert',
-      --   'Base Grade',
-      --   'Remarkable',
-      --   'Superior',
-      --   'Distinguished',
-      --   'Extraordinary',
-      --   'Exceptional',
-      --   'Master',
-      --   'Exotic',
-      --   'Contraband'
-      -- ),
-      rarity VARCHAR(255),
-      -- type ENUM(
-      --   'key', 
-      --   'container',      
-      --   'Bayonet',
-      --   'Butterfly Knife',
-      --   'Falchion Knife',
-      --   'Flip Knife',
-      --   'Gut Knife',
-      --   'Huntsman Knife',
-      --   'Karambit',
-      --   'M9 Bayonet',
-      --   'Shadow Daggers',
-      --   'Bowie Knife',
-      --   'Ursus Knife',
-      --   'Navaja Knife',
-      --   'Stiletto Knife',
-      --   'Talon Knife',
-      --   'Classic Knife',
-      --   'Skeleton Knife',
-      --   'Paracord Knife',
-      --   'Survival Knife',
-      --   'Nomad Knife',
-      --   'Glock-18',
-      --   'P2000',
-      --   'USP-S',
-      --   'Dual Berettas',
-      --   'P250',
-      --   'Tec-9',
-      --   'CZ75-Auto',
-      --   'Five-SeveN',
-      --   'Desert Eagle',
-      --   'R8 Revolver',
-      --   'MAC-10',
-      --   'MP9',
-      --   'MP7',
-      --   'MP5-SD',
-      --   'UMP-45',
-      --   'P90',
-      --   'PP-Bizon',
-      --   'Nova',
-      --   'XM1014',
-      --   'Sawed-Off',
-      --   'MAG-7',
-      --   'M249',
-      --   'Negev',
-      --   'Galil AR',
-      --   'FAMAS',
-      --   'AK-47',
-      --   'M4A4',
-      --   'M4A1-S',
-      --   'SSG 08',
-      --   'SG 553',
-      --   'AUG',
-      --   'AWP',
-      --   'G3SG1',
-      --   'SCAR-20',
-      --   'Zeus x27'
-      -- ),
+      name VARCHAR(255) NOT NULL,          -- "AK-47 | Красная линия"
+      price VARCHAR(255) NOT NULL,           -- Базовая стоимость
+      rarity ENUM(
+        'Consumer Grade',
+        'Mil-Spec Grade',
+        'Industrial Grad',
+        'Restricted',
+        'Classified',
+        'High Grade',
+        'Covert',
+        'Base Grade',
+        'Remarkable',
+        'Superior',
+        'Distinguished',
+        'Extraordinary',
+        'Exceptional',
+        'Master',
+        'Exotic',
+        'Contraband'
+      ),
       type VARCHAR(255),
-      imageUrl VARCHAR(755)
+      wear VARCHAR(255),
+      souvenir BOOLEAN DEFAULT 0,
+      imgURL VARCHAR(500)
   );
 
 
@@ -106,15 +49,13 @@
       itemId INT NOT NULL,
       floatValue FLOAT(9,8) DEFAULT 0.0,   -- Значение износа (например, 0.154321)
       pattern INT DEFAULT 0,               -- Паттерн скина
-    --   quality ENUM(
-    --     'factory_new',    -- от 0.00 до 0.07
-    --     'minimal_wear',   -- от 0.07 до 0.15
-    --     'field_tested',   -- от 0.15 до 0.37
-    --     'well_worn',      -- от 0.37 до 0.45
-    --     'battle_scarred', -- от 0.45 до 1.00
-    --     ''
-    --   ),
-      quality VARCHAR(255),
+      quality ENUM(
+        'factory_new',    -- от 0.00 до 0.07
+        'minimal_wear',   -- от 0.07 до 0.15
+        'field_tested',   -- от 0.15 до 0.37
+        'well_worn',      -- от 0.37 до 0.45
+        'battle_scarred', -- от 0.45 до 1.00
+      ),
       isTradable BOOLEAN DEFAULT TRUE,
       obtainedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (userId) REFERENCES users(id),
@@ -123,3 +64,11 @@
 
    CREATE INDEX idxUserId ON usersInventory(userId);
    CREATE INDEX idxItemId ON usersInventory(itemId);
+
+   LOAD DATA INFILE '/var/www/casino.vardie.ru/assets/csgo_skins.csv'^
+   INTO TABLE items^
+   FIELDS TERMINATED BY ','^
+   ENCLOSED BY '"'^
+   LINES TERMINATED BY '\n'^
+   IGNORE 1 ROWS^
+   (name,price,rarity,type,wear,souvenir,imgURL);
