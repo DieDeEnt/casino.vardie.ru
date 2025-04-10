@@ -37,8 +37,8 @@
         <ul>
             <li><a href="#" class="footer-text">Info</a></li>
             <li><a href="#" class="footer-text">Public</a></li>
-            <li><a href="text\privacyPolicy.php" class="footer-text">Privacy Policy</a></li>
-            <li><a href="text\termsOfService.php" class="footer-text">Terms of service</a></li>
+            <li><a href="/text/privacyPolicy.php" class="footer-text">Privacy Policy</a></li>
+            <li><a href="/text/termsOfService.php" class="footer-text">Terms of service</a></li>
         </ul>
     </footer>
     <script src="js/main.js"></script>

@@ -22,7 +22,13 @@ main {
   
 }
 
-.devMessage {
-  text-align: center;
+.policyBox {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--bgColor-darkGray);;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(54, 54, 54, 0.1);
+  
 }
 
