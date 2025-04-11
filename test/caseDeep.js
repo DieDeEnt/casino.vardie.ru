@@ -35,8 +35,8 @@ function initRoulette() {
     track.innerHTML = duplicatedItems.map(item => `
         <div class="roulette-item ${item.rarity}">
             <img src="${item.imgURL}" alt="${item.name}">
-            <div class="item-name">${item.name}</div>
-            <div class="item-rarity">${item.rarity}</div>
+                <!-- <div class="item-name">${item.name}</div>
+                <div class="item-rarity">${item.rarity}</div> -->
         </div>
     `).join('');
 }
