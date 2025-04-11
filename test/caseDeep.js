@@ -147,53 +147,24 @@ async function performSingleSpin() {
 // Обновленная функция анимации
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-
-    console.log('[DEBUG] Полученный предмет:', targetItem);
-    console.log('[DEBUG] Существует в items:', items.some(i => i.id === targetItem.id));
-
-
-    const itemWidth = 180; // Совпадает с CSS
-    const containerWidth = track.parentElement.offsetWidth; // Динамический расчет ширины
+    const itemWidth = 180;
+    const containerWidth = track.parentElement.offsetWidth;
     
-    // 1. Находим индекс целевого предмета в исходном массиве
-    const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    if (targetIndex === -1) {
-        throw new Error("Предмет не найден в базе данных");
-    }
-    const targetElement = track.querySelector(`[data-id="${targetItem.id}"]`);
-if (targetElement) {
-    targetElement.style.outline = '3px solid #00ff00';
-    console.log('[DEBUG] Элемент найден в DOM');
-} else {
-    console.error('[DEBUG] Элемент не найден в DOM');
-}
+    // Фильтрация уникальных ID
+    const uniqueItems = [...new Set(items.map(i => i.id))];
+    const targetIndex = uniqueItems.indexOf(targetItem.id);
 
-    // 2. Расчет позиции с учетом дублирования элементов
-    const totalClones = 3; // Количество дубликатов
-    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
-    const targetPosition = (middleCloneSet + targetIndex) * itemWidth - (containerWidth / 2) + (itemWidth / 2);
-    console.log(
-        `[DEBUG] Рассчет позиции:
-        Index: ${targetIndex}, 
-        TargetPos: ${-targetPosition}px,
-        Container: ${containerWidth}px`
-    );
-    // 3. Сброс анимации
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${-containerWidth * 2}px)`;
-    
-    // 4. Запуск анимации
-    await new Promise(r => requestAnimationFrame(r));
-    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    // Новая формула:
+    const targetPosition = 
+        (containerWidth * 1.5) - // Стартовое смещение
+        (targetIndex * itemWidth) - 
+        (itemWidth / 2);
+
+    track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
-
-
-    // 5. Ожидание завершения
-    await new Promise(resolve => {
-        track.addEventListener('transitionend', resolve, { once: true });
-    });
-
 }
+
+
 
 async function fetchItemData(itemId) {
     const response = await fetch(`get_item.php?id=${itemId}`);
