@@ -138,6 +138,7 @@ header {
     grid-template-columns: 1fr 1.5fr;
     gap: 30px;
     margin-bottom: 40px;
+    justify-content: center;
 }
 
 .case-display {
@@ -187,12 +188,12 @@ header {
     background-color: rgba(27, 27, 30, 0.7);
     border: 2px solid var(--primary);
     padding: 15px 14px;
-
+    height: 300px;
 }
 
 .roulette-items {
     display: flex;
-    width: max-content;
+    width: 100%;
     position: absolute;
     position: relative;
     left: 0;
@@ -205,7 +206,7 @@ header {
 }
 
 .roulette-item {
-    flex: 0 0 180px;
+    flex: 0 0 240px;
     flex-shrink: 0; /* Запрещаем сжатие */
     height: 100%;
     padding: 16px;
