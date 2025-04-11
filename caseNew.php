@@ -20,6 +20,33 @@
         </div>
         <div class="center-indicator"></div>
     </div>
+
+    <div class="controls">
+                    <div class="price-selector">
+                        <div class="price-option active">1 case (10$)</div>
+                        <div class="price-option">3 case (27$)</div>
+                        <div class="price-option">5 case (45$)</div>
+                    </div>
+                    <button class="open-btn" id="openBtn">Open</button>
+                </div>
+                
+                <div class="result" id="result">
+                    <div class="result-item">
+                        <img id="resultImage" src="" alt="Выигрыш">
+                        <div class="item-info">
+                            <h2 id="resultName"></h2>
+                            <div class="rarity" id="resultRarity"></div>
+                            <div class="item-price" id="resultPrice"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="inventory-section">
+            <h3 class="section-title">Your inventory</h3>
+            <div class="inventory-items" id="inventory"></div>
+        </div>
 </div>
 <script src="caseNew.js"></script>
 </body>
