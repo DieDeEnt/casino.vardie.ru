@@ -108,7 +108,7 @@ header {
     border: 1px solid var(--primary);
 }
 
-/* .roulette-container {
+.roulette-container {
     height: 180px;
     max-width: 900px;
     margin: 0 auto;
@@ -120,18 +120,9 @@ header {
     border: 2px solid var(--primary);
     
 
-} */
-
-.roulette-container {
-    height: 180px;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    overflow: hidden;
-    position: relative;
 }
 
-/* .roulette-items {
+.roulette-items {
     display: flex;
     width: max-content;
     position: absolute;
@@ -141,17 +132,9 @@ header {
     transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
     will-change: transform;
     backface-visibility: hidden;
-} */
-
-.roulette-items {
-    display: flex;
-    position: absolute;
-    right: 0; /* Начальная позиция справа */
-    transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
-    will-change: transform;
 }
 
-/* .roulette-item {
+.roulette-item {
     flex: 0 0 180px;
     height: 180px;
     display: flex;
@@ -160,14 +143,6 @@ header {
     align-items: center;
     background-color: rgba(35, 35, 40, 0.6);
     border-right: 1px solid rgba(176, 74, 53, 0.3);
-} */
-
-.roulette-item {
-    flex: 0 0 180px;
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 
@@ -183,12 +158,12 @@ header {
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
     width: 2px;
     height: 100%;
+    z-index: 100;
+    content: '';
     background: var(--secondary);
-    box-shadow: var(--secondary) 0 0 8px;
-    z-index: 10;
+    box-shadow: 0 0 15px var(--secondary);
 }
 
 .indicator::before,

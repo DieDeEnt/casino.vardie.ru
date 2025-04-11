@@ -147,44 +147,23 @@ async function performSingleSpin() {
 // Обновленная функция анимации
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Совпадает с CSS
+    const itemWidth = 180;
     const containerWidth = track.parentElement.offsetWidth;
     
-    // 1. Находим индекс целевого предмета
-    const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-    // 2. Настройки для движения справа налево
-    const totalClones = 3; // Количество копий элементов
-    const startOffset = containerWidth; // Стартовая позиция справа
-    const clonesOffset = items.length * itemWidth * Math.floor(totalClones / 2);
-    
-    // 3. Формула позиции с учетом направления
+    // Фильтрация уникальных ID
+    const uniqueItems = [...new Set(items.map(i => i.id))];
+    const targetIndex = uniqueItems.indexOf(targetItem.id);
+
+    // Новая формула:
     const targetPosition = 
-        (targetIndex * itemWidth) + 
-        clonesOffset - 
-        (containerWidth / 2) + 
+        (containerWidth * 1.5) - // Стартовое смещение
+        (targetIndex * itemWidth) - 
         (itemWidth / 2);
 
-    // 4. Логирование
-    console.log(
-        `Индекс: ${targetIndex}, 
-        Позиция: ${targetPosition}px,
-        Ширина контейнера: ${containerWidth}px`
-    );
-
-    // 5. Анимация
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${startOffset}px)`; // Старт справа
-    
-    await new Promise(r => requestAnimationFrame(r));
-    
-    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(-${targetPosition}px)`; // Движение влево
-    
-    await new Promise(resolve => {
-        track.addEventListener('transitionend', resolve, { once: true });
-    });
+    track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    track.style.transform = `translateX(${-targetPosition}px)`;
 }
+
 
 
 async function fetchItemData(itemId) {
