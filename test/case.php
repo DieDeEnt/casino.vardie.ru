@@ -13,12 +13,8 @@
     <title>KukenCase Opening</title>
     <!-- Page Logo -->
     <link rel="shortcut icon" href="/icon/caseImg1.png" type="image/png" />
-
-    <!-- main.css -->
-    <link rel="stylesheet" href="/css/main.css">
-    <!-- normalize.css -->
-    <link rel="stylesheet" href="/css/normalize.css" />
-    <!-- case.css -->
+    <!-- <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/normalize.css" /> -->
     <link rel="stylesheet" href="/css/case.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
