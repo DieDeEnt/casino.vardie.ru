@@ -49,13 +49,6 @@
       itemId INT NOT NULL,
       floatValue FLOAT(9,8) DEFAULT 0.0,   -- Значение износа (например, 0.154321)
       pattern INT DEFAULT 0,               -- Паттерн скина
-      quality ENUM(
-        'factory_new',    -- от 0.00 до 0.07
-        'minimal_wear',   -- от 0.07 до 0.15
-        'field_tested',   -- от 0.15 до 0.37
-        'well_worn',      -- от 0.37 до 0.45
-        'battle_scarred', -- от 0.45 до 1.00
-      ),
       isTradable BOOLEAN DEFAULT TRUE,
       obtainedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (userId) REFERENCES users(id),

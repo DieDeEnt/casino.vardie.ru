@@ -62,7 +62,7 @@ emailConfirm($usernameOrEmail);
 addItemToInventory($user,rand(1,2040));
 
 
-redirect('/homePage.php');
+redirect('/test/case.php');
 
     // $pdo = null;
 ?>
