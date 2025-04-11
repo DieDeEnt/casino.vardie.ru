@@ -143,27 +143,29 @@ async function performSingleSpin() {
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
     const itemWidth = 180; // Совпадает с CSS
-    const containerWidth = 900; // 5 предметов * 180px
-    const visibleItems = 5;
+    const containerWidth = track.parentElement.offsetWidth; // Динамический расчет ширины
     
-    // Находим индекс целевого предмета
+    // 1. Находим индекс целевого предмета в исходном массиве
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-    // Новая формула позиционирования
-    const targetPosition = (targetIndex * itemWidth) - (containerWidth / 2) + (itemWidth / 2);
-    
-    // Лог для отладки
-    console.log(`Calculated position: ${-targetPosition}px | Item index: ${targetIndex}`);
+    if (targetIndex === -1) {
+        throw new Error("Предмет не найден в базе данных");
+    }
 
-    // Сброс анимации
+    // 2. Расчет позиции с учетом дублирования элементов
+    const totalClones = 3; // Количество дубликатов
+    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
+    const targetPosition = (middleCloneSet + targetIndex) * itemWidth - (containerWidth / 2) + (itemWidth / 2);
+
+    // 3. Сброс анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(${-containerWidth * 3}px)`;
+    track.style.transform = `translateX(${-containerWidth * 2}px)`;
     
+    // 4. Запуск анимации
     await new Promise(r => requestAnimationFrame(r));
-    
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
 
+    // 5. Ожидание завершения
     await new Promise(resolve => {
         track.addEventListener('transitionend', resolve, { once: true });
     });

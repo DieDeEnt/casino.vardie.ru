@@ -110,44 +110,37 @@ header {
 
 .roulette-container {
     height: 180px;
-    border-radius: 8px;
-    background-color: rgba(27, 27, 30, 0.7);
-    border: 2px solid var(--primary);
     width: 900px;
     margin: 0 auto;
     overflow: hidden;
     position: relative;
+    border: 2px solid #00ff00;
+    border-radius: 8px;
+    background-color: rgba(27, 27, 30, 0.7);
+    /* border: 2px solid var(--primary); */
+    
+
 }
-
-
-
-/* Обновленный CSS */
-
-
-
-
 
 .roulette-items {
     display: flex;
     position: absolute;
-    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
-    position: absolute;
-    right: 50%;
-    transform: translateX(50%);
-    will-change: transform;
 }
 
 .roulette-item {
     flex: 0 0 180px;
     height: 180px;
     display: flex;
-    flex-direction: column;
+    box-sizing: border-box;
     justify-content: center;
     align-items: center;
+    border: 1px solid rgba(255, 0, 0, 0.3);
     /* transform: scaleX(-1); */
     background-color: rgba(35, 35, 40, 0.6);
-    border-right: 1px solid rgba(176, 74, 53, 0.3);
+    /* border-right: 1px solid rgba(176, 74, 53, 0.3); */
 }
 
 
@@ -347,6 +340,6 @@ header {
     width: 2px;
     height: 100%;
     background: #00ff00;
-    transform: translateX(-1px);
-    z-index: 100;
+    box-shadow: 0 0 15px #00ff00;
+    z-index: 1000;
 }
