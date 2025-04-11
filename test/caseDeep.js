@@ -231,7 +231,7 @@ async function animateRoulette(targetItem) {
     await new Promise(resolve => requestAnimationFrame(resolve));
     
     // Параметры анимации
-    const targetPosition = -(virtualPosition * itemWidth);
+    const targetPosition = -(virtualPosition * itemWidth)+360;
     const distance = Math.abs(targetPosition - startPosition);
     const duration = Math.min(Math.max(distance / 2, 3000), 5000);
     
