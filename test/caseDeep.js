@@ -140,109 +140,39 @@ async function performSingleSpin() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Инициализация трека с клонами
+async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const originalItems = Array.from(track.children);
-    const cloneCount = 3;
-    
-    // Очищаем и заполняем трек клонами
-    track.innerHTML = '';
-    for (let i = 0; i < cloneCount; i++) {
-        originalItems.forEach(item => {
-            const clone = item.cloneNode(true);
-            track.appendChild(clone);
-        });
-    }
-    
-    // Сохраняем оригинальные элементы
-    window.rouletteItems = originalItems;
-});
-
-
-async function animateRoulette() {
-    const track = document.getElementById('itemsTrack');
-    if (!track || !window.rouletteItems?.length) return;
-
-    const items = Array.from(track.children);
-    const itemWidth = items[0].offsetWidth;
+    const itemWidth = 180; // Совпадает с CSS
     const containerWidth = track.parentElement.offsetWidth;
     
-    // Случайный выбор целевого элемента из оригиналов
-    const targetItem = window.rouletteItems[
-        Math.floor(Math.random() * window.rouletteItems.length)
-    ];
+    // 1. Находим индекс в исходном массиве
+    const targetIndex = items.findIndex(item => item.id === targetItem.id);
     
-    // Поиск первого подходящего клона в треке
-    const targetIndex = items.findIndex(
-        item => item.dataset.id === targetItem.dataset.id
-    );
+    // 2. Учитываем 3 копии элементов
+    const totalClones = 3;
+    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
     
-    // Расчет позиции с учетом центрирования
-    // const targetPosition = targetIndex * itemWidth 
-    //     - (containerWidth - itemWidth) / 2 
-    //     + (window.rouletteItems.length * itemWidth); // Смещение для плавности
-
+    // 3. Новая формула позиции
     targetPosition = 
-    (middleCloneSet + targetIndex) * itemWidth - 
-    (containerWidth / 2) + 
-    (itemWidth*Math.random() * (0.99 - 0.01) + 0.01);
+        (middleCloneSet + targetIndex) * itemWidth - 
+        (containerWidth / 2) + 
+        (itemWidth*Math.random() * (0.99 - 0.01) + 0.01);
 
-    // Подготовка анимации
+    // 4. Логирование
+    console.log(
+        `Индекс: ${targetIndex}, 
+        Позиция: ${-targetPosition}px,
+        Ширина контейнера: ${containerWidth}px`
+    );
+
+    // 5. Запуск анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(${-window.rouletteItems.length * itemWidth}px)`;
-    
-    // Запуск анимации
+    track.style.transform = `translateX(${-containerWidth * 2}px)`;
     await new Promise(r => requestAnimationFrame(r));
-    track.style.transition = 'transform 4s cubic-bezier(0.25, 0.1, 0.25, 1)';
+    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
-    
-    // Ожидание завершения
-    await new Promise(r => track.addEventListener('transitionend', r, { once: true }));
-    
-    // Сброс позиции для бесконечности
-    track.style.transition = 'none';
-    const resetPosition = targetPosition % (window.rouletteItems.length * itemWidth);
-    track.style.transform = `translateX(${-resetPosition}px)`;
-    
-    // Рекурсивный вызов с рандомной задержкой
-    setTimeout(animateRoulette, 500 + Math.random() * 1500);
+    await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 }
-
-
-// async function animateRoulette(targetItem) {
-//     const track = document.getElementById('itemsTrack');
-//     const itemWidth = 180; // Совпадает с CSS
-//     const containerWidth = track.parentElement.offsetWidth;
-    
-//     // 1. Находим индекс в исходном массиве
-//     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-//     // 2. Учитываем 3 копии элементов
-//     const totalClones = 3;
-//     const middleCloneSet = Math.floor(totalClones / 2) * items.length;
-    
-//     // 3. Новая формула позиции
-//     targetPosition = 
-//         (middleCloneSet + targetIndex) * itemWidth - 
-//         (containerWidth / 2) + 
-//         (itemWidth*Math.random() * (0.99 - 0.01) + 0.01);
-
-//     // 4. Логирование
-//     console.log(
-//         `Индекс: ${targetIndex}, 
-//         Позиция: ${-targetPosition}px,
-//         Ширина контейнера: ${containerWidth}px`
-//     );
-
-//     // 5. Запуск анимации
-//     track.style.transition = 'none';
-//     track.style.transform = `translateX(${-containerWidth * 2}px)`;
-//     await new Promise(r => requestAnimationFrame(r));
-//     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-//     track.style.transform = `translateX(${-targetPosition}px)`;
-//     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
-// }
 
 async function fetchItemData(itemId) {
     const response = await fetch(`get_item.php?id=${itemId}`);
