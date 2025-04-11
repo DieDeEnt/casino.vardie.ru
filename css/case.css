@@ -93,7 +93,7 @@ header {
     100% { transform: rotate(360deg); }
 }
 
-/* .roulette-items {
+.roulette-items {
     display: flex;
     position: absolute;
     height: 100%;
@@ -112,11 +112,9 @@ header {
     box-sizing: border-box;
     background-color: rgba(35, 35, 40, 0.6);
     border-right: 1px solid rgba(176, 74, 53, 0.3);
-} */
+}
 
 .roulette-items {
-    display: flex;
-    position: absolute;
     left: 50%;
     transform: translateX(-50%);
     will-change: transform;
