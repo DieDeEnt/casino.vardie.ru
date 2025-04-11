@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="/css/normalize.css" />
     <!-- case.css -->
     <link rel="stylesheet" href="/css/case.css">
-    <link rel="stylesheet" href="/test/add.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>

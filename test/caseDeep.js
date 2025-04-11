@@ -33,12 +33,16 @@ async function loadItems() {
 
 function initRoulette() {
     const track = document.getElementById('itemsTrack');
-    track.innerHTML = [...items, ...items, ...items]
-        .map(item => `
-            <div class="roulette-item">
-                <img src="${item.imgURL}" data-id="${item.id}" alt="${item.name}">
-            </div>
-        `).join('');
+    track.innerHTML = [...items, ...items, ...items].map(item => `
+        <div class="roulette-item ${item.rarity}" data-id="${item.id}">
+            <img src="${item.imgURL}" alt="${item.name}">
+        </div>
+    `).join('');
+
+    // Добавьте этот блок
+    const firstItem = track.children[0];
+    console.log('[DEBUG] Ширина элемента:', firstItem.offsetWidth, 'px');
+    console.log('[DEBUG] Количество элементов:', track.children.length);
 }
 
 function setupEventListeners() {
