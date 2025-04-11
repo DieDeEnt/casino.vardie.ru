@@ -114,17 +114,30 @@ header {
     border-right: 1px solid rgba(176, 74, 53, 0.3);
 }
 
+.roulette-container {
+    width: 900px; /* Ширина 5 предметов (180px * 5) */
+    overflow: hidden;
+}
+
+.roulette-container {
+    position: relative;
+    height: 180px;
+    margin: 30px 0;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: rgba(27, 27, 30, 0.7);
+    border: 2px solid var(--primary);
+}
+
 .roulette-items {
-    left: 50%;
-    transform: translateX(-50%);
-    will-change: transform;
+    display: flex;
+    width: max-content;
 }
 
 .roulette-item {
     flex: 0 0 180px;
-    transition: transform 0.3s;
+    box-sizing: border-box;
 }
-
 
 
 
@@ -197,15 +210,7 @@ header {
     color: var(--light-accent);
 }
 
-.roulette-container {
-    position: relative;
-    height: 180px;
-    margin: 30px 0;
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: rgba(27, 27, 30, 0.7);
-    border: 2px solid var(--primary);
-}
+
 
 
 .indicator {
