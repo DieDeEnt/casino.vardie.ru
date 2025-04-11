@@ -23,17 +23,17 @@
     --★Covert:rgb(255, 215, 0);
 }
 
-.roulette-item .Consumer .Grade{
+.Consumer{
     border-bottom: 2px solid var(--ConsumerGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--ConsumerGrade) 100%)
 }
 
-.roulette-item .Mil-Spec .Grade{
+.Mil-Spec{
     border-bottom: 2px solid var(--Mil-SpecGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Mil-SpecGrade) 100%)
 }
 
-.roulette-item .Industrial .Grade{
+.Industrial{
     border-bottom: 2px solid var(--IndustrialGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--IndustrialGrade) 100%)
 }
