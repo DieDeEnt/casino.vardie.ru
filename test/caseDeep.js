@@ -146,7 +146,7 @@ async function performSingleSpin() {
 
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 240; // Совпадает с CSS
+    const itemWidth = 180; // Совпадает с CSS
     const containerWidth = track.parentElement.offsetWidth;
     
     // 1. Находим индекс в исходном массиве
