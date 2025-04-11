@@ -82,6 +82,8 @@ async function startSpin() {
     }
 }
 
+// В файле caseDeep.js
+
 async function performSingleSpin() {
     try {
         const response = await fetch('handle_spin.php', {
@@ -89,47 +91,50 @@ async function performSingleSpin() {
             credentials: 'include'
         });
 
-        // Проверка HTTP-статуса
-        if (!response.ok) {
-            throw new Error(`Ошибка сервера: ${response.status}`);
-        }
+        // ... предыдущий код ...
 
-        // Чтение сырого ответа и проверка на пустоту
-        const text = await response.text();
-        if (!text.trim()) {
-            throw new Error('Сервер вернул пустой ответ');
-        }
-
-        // Парсинг JSON с обработкой ошибок
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch (e) {
-            console.error('Невалидный JSON:', text);
-            throw new Error('Ошибка обработки данных');
-        }
-
-        // Проверка наличия itemId
-        if (!data.itemId) {
-            throw new Error('Некорректные данные предмета');
-        }
-
-        // Поиск предмета в локальном кеше
         const item = items.find(i => i.id == data.itemId);
-        if (!item) {
-            throw new Error('Предмет не найден');
-        }
+        if (!item) throw new Error('Item not found');
 
-        // Запуск анимации и обновление интерфейса
-        animateRoulette(item);
-        updateWinHistory(item);
+        // Новая логика анимации
+        await animateRoulette(item);
         
         return item;
-
     } catch (error) {
-        showError(error.message);
-        throw error;
+        // ... обработка ошибок ...
     }
+}
+
+// Обновленная функция анимации
+async function animateRoulette(targetItem) {
+    const track = document.getElementById('itemsTrack');
+    const itemsCount = items.length;
+    const itemWidth = 180; // Ширина одного элемента
+    
+    // Расчет позиции в дублированном массиве
+    const targetIndex = items.findIndex(i => i.id === targetItem.id);
+    const virtualPosition = itemsCount * 2 + targetIndex; // Центральная копия
+    
+    // Сброс анимации
+    track.style.transition = 'none';
+    track.style.transform = `translateX(0px)`;
+
+    // Запуск анимации с задержкой
+    await new Promise(resolve => setTimeout(resolve, 50));
+    
+    // Параметры анимации
+    const startPosition = -itemsCount * itemWidth;
+    const targetPosition = -(virtualPosition * itemWidth);
+    const distance = Math.abs(targetPosition - startPosition);
+    const duration = Math.min(Math.max(distance / 2, 3000), 5000);
+
+    track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    track.style.transform = `translateX(${targetPosition}px)`;
+
+    // Ожидание завершения анимации
+    await new Promise(resolve => {
+        track.addEventListener('transitionend', resolve, { once: true });
+    });
 }
 
 async function fetchItemData(itemId) {
