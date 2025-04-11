@@ -89,33 +89,38 @@ async function performSingleSpin() {
             credentials: 'include'
         });
 
+        // Проверка HTTP-статуса
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error(`Ошибка сервера: ${response.status}`);
         }
 
+        // Чтение сырого ответа и проверка на пустоту
         const text = await response.text();
-        console.log(text);
-        
-        if (!text) {
-            throw new Error('Empty server response');
+        if (!text.trim()) {
+            throw new Error('Сервер вернул пустой ответ');
         }
 
+        // Парсинг JSON с обработкой ошибок
         let data;
         try {
             data = JSON.parse(text);
-        } catch (jsonError) {
-            throw new Error('Failed to parse JSON: ' + jsonError.message);
+        } catch (e) {
+            console.error('Невалидный JSON:', text);
+            throw new Error('Ошибка обработки данных');
         }
 
+        // Проверка наличия itemId
         if (!data.itemId) {
-            throw new Error('Invalid item data');
+            throw new Error('Некорректные данные предмета');
         }
 
-        const item = items.find(i => i.id === data.itemId);
+        // Поиск предмета в локальном кеше
+        const item = items.find(i => i.id == data.itemId);
         if (!item) {
-            throw new Error('Item not found in local database');
+            throw new Error('Предмет не найден');
         }
 
+        // Запуск анимации и обновление интерфейса
         animateRoulette(item);
         updateWinHistory(item);
         
