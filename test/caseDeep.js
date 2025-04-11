@@ -213,28 +213,30 @@ async function performSingleSpin() {
 
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Должно совпадать с CSS
-    const visibleItems = 5; // Количество видимых предметов
+    const itemsCount = items.length;
+    const itemWidth = 180; // Ширина одного элемента
     
-    // 1. Находим индекс целевого предмета
-    const targetIndex = items.findIndex(item => item.id === targetItem.id);
+    // Расчет позиции в дублированном массиве
+    const targetIndex = items.findIndex(i => i.id === targetItem.id);
+    const virtualPosition = itemsCount * 2 + targetIndex; // Центральная копия
     
-    // 2. Рассчитываем позицию для плавной остановки
-    const repetitions = 3; // Количество повторений элементов
-    const middleSetStart = items.length * Math.floor(repetitions / 2);
-    const targetPosition = -(middleSetStart + targetIndex) * itemWidth + (itemWidth * visibleItems)/2;
-
-    // 3. Сброс анимации
+    // Сброс анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(${-items.length * itemWidth}px)`;
+    track.style.transform = `translateX(0px)`;
+
+    // Запуск анимации с задержкой
+    await new Promise(resolve => setTimeout(resolve, 50));
     
-    // 4. Запуск анимации
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    
-    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    // Параметры анимации
+    const startPosition = -itemsCount * itemWidth;
+    const targetPosition = -(virtualPosition * itemWidth);
+    const distance = Math.abs(targetPosition - startPosition);
+    const duration = Math.min(Math.max(distance / 2, 3000), 5000);
+
+    track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${targetPosition}px)`;
 
-    // 5. Ожидание завершения
+    // Ожидание завершения анимации
     await new Promise(resolve => {
         track.addEventListener('transitionend', resolve, { once: true });
     });
