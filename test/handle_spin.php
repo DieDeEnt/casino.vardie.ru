@@ -20,23 +20,23 @@ try {
         'Covert'=>7,
 
         // 21
-        'StatTrak™ Consumer Grade'=>5,
-        'StatTrak™ Mil-Spec Grade'=>3,
-        'StatTrak™ Industrial Grade'=>3,
-        'StatTrak™ Restricted'=>3,
-        'StatTrak™ Classified'=>3,
-        'StatTrak™ High Grade'=>3,
-        'StatTrak™ Covert'=>0,
+        // 'StatTrak™ Consumer Grade'=>5,
+        'StatTrak™ Mil-Spec Grade'=>4,
+        'StatTrak™ Industrial Grade'=>4,
+        'StatTrak™ Restricted'=>4,
+        'StatTrak™ Classified'=>4,
+        'StatTrak™ High Grade'=>4,
+        // 'StatTrak™ Covert'=>0,
         '★ Covert'=>2,
-        'Base Grade'=>0,
+        // 'Base Grade'=>0,
         'Remarkable'=>8,
-        'Superior'=>0,
-        'Distinguished'=>0,
-        'Extraordinary'=>0,
-        'Exceptional'=>0,
+        // 'Superior'=>0,
+        // 'Distinguished'=>0,
+        // 'Extraordinary'=>0,
+        // 'Exceptional'=>0,
         'Master'=>10,
-        'Exotic'=>0,
-        'Contraband' =>0
+        // 'Exotic'=>0,
+        // 'Contraband' =>0
 
     ];
 
@@ -61,5 +61,5 @@ try {
     echo json_encode(['itemId' => $item['id']]);
     
 } catch (PDOException $e) {
-    die(json_encode(['error' => $e->getMessage(),$_SESSION['user'],$selectedRarity,$item['id']]));
+    die(json_encode(['error' => $e->getMessage(),$_SESSION['user']['id'],$selectedRarity,$item['id']]));
 }
