@@ -7,7 +7,10 @@ $user = currentUser();
 header('Content-Type: application/json');
 $pdo = setPDO();
 
-
+// Проверка авторизации
+if (!isset($_SESSION['user']['id'])) {
+    die(json_encode(['error' => 'Требуется авторизация']));
+}
 
 // Получение случайного предмета
 try {
