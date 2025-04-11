@@ -129,7 +129,7 @@ header {
     position: relative;
     left: 0;
     gap: 0 !important; /* Убираем промежутки */
-    padding: 0 50%; /* Центрирование */
+
     transform: none;
     transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
     will-change: transform;
