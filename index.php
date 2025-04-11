@@ -12,9 +12,9 @@
     <!-- main.css -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- normalize.css -->
-    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="/css/normalize.css" />
     <!-- index.css -->
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <link rel="stylesheet" href="/css/index.css">
 
 
     <!-- fonts -->
@@ -39,8 +39,8 @@
             
         </div>
         <div class="block2">
-            <a class="textS" href="/case.php">design</a>
-            <a class="textS" href="/caseOpen.php">Case</a>
+            <a class="textS" href="/case.php">CaseDB</a>
+            <a class="textS" href="/caseOpen.php">OldJsNoDB</a>
             <a class="textS" href="/daniyMain/upgrade.html">Upgrade</a>
             <a class="textS" href="/inventotyPage.php">Invent</a>
         </div>

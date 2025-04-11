@@ -86,7 +86,7 @@ main {
 footer { 
     /* min-height: 10vh; */
     padding: 32px 16px;
-    margin: 5%; 
+    margin: 5% 5% 10% 5%; 
     flex-shrink: 0;
     
 }
@@ -99,7 +99,7 @@ footer {
     font-size: var(--default-sub-text-size);
 }
 
-ul {
+footer ul {
     flex-wrap: wrap;
     list-style: none;
     display: flex;

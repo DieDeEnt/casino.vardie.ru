@@ -17,9 +17,9 @@
     <!-- main.css -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- normalize.css -->
-    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="/css/normalize.css" />
     <!-- case.css -->
-    <link rel="stylesheet" type="text/css" href="/css/case.css">
+    <link rel="stylesheet" href="/css/case.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>

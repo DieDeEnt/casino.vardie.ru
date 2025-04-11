@@ -11,9 +11,9 @@
     <!-- main.css -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- normalize.css -->
-    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="/css/normalize.css" />
     <!-- case.css -->
-    <link rel="stylesheet" type="text/css" href="/css/case.css">
+    <link rel="stylesheet" href="/css/case.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -29,7 +29,7 @@
         
         <div class="case-container">
             <div class="case-display">
-                <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/730/9f6cb8a6c8f1a8f266946b8060a1f5f0e2d6a5a9.png" alt="CS:GO Case" class="case-image" id="caseImage">
+                <img src="/icon/caseImg1.png" alt="CS:GO Case" class="case-image" id="caseImage">
                 <h2 class="case-name">Operation Broken Fang Case</h2>
                 <p class="case-price">Prise: 10$</p>
                 <div id="casesOpened"></div>

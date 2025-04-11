@@ -8,9 +8,9 @@
     <!-- main.css -->
     <link rel="stylesheet" href="/css/main.css">
     <!-- normalize.css -->
-    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="/css/normalize.css" />
     <!-- caseOpenStyle.css -->
-    <link rel="stylesheet" type="text/css" href="/css/caseOpenStyle.css">
+    <link rel="stylesheet" href="/css/caseOpenStyle.css">
 
 
     <!-- fonts -->

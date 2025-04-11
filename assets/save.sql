@@ -19,14 +19,14 @@
       name VARCHAR(255) NOT NULL,          -- "AK-47 | Красная линия"
       price VARCHAR(255) NOT NULL,           -- Базовая стоимость
       rarity ENUM(
-        'Consumer Grade',
-        'Mil-Spec Grade',
-        'Industrial Grad',
-        'Restricted',
-        'Classified',
-        'High Grade',
-        'Covert',
-        'Base Grade',
+        'Consumer Grade','Consumer Grade Sniper',
+        'Mil-Spec Grade','StatTrak™ Mil-Spec Grade',
+        'Industrial Grade','StatTrak™ Industrial Grade',
+        'Restricted','StatTrak™ Restricted',
+        'Classified','StatTrak™ Classified',
+        'High Grade','StatTrak™ High Grade',
+        'Covert','★ Covert','StatTrak™ Covert',
+        'Base Grade','',
         'Remarkable',
         'Superior',
         'Distinguished',
@@ -34,7 +34,7 @@
         'Exceptional',
         'Master',
         'Exotic',
-        'Contraband'
+        'Contraband','StatTrak™ Contraband'
       ),
       type VARCHAR(255),
       wear VARCHAR(255),
@@ -65,10 +65,10 @@
    CREATE INDEX idxUserId ON usersInventory(userId);
    CREATE INDEX idxItemId ON usersInventory(itemId);
 
-   LOAD DATA INFILE '/var/www/casino.vardie.ru/assets/csgo_skins.csv'^
-   INTO TABLE items^
-   FIELDS TERMINATED BY ','^
-   ENCLOSED BY '"'^
-   LINES TERMINATED BY '\n'^
-   IGNORE 1 ROWS^
+   LOAD DATA INFILE '/var/www/casino.vardie.ru/assets/items.csv'
+   INTO TABLE items
+   FIELDS TERMINATED BY ','
+   ENCLOSED BY '"'
+   LINES TERMINATED BY '\n'
+   IGNORE 1 ROWS
    (name,price,rarity,type,wear,souvenir,imgURL);
