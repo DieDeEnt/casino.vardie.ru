@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . '/source/helpers.php';
+    require_once __DIR__ . '/../source/helpers.php';
     authUser();
     $user = currentUser();
 ?>
