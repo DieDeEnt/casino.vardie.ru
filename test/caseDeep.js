@@ -152,8 +152,12 @@ async function animateRoulette(targetItem) {
     
     // Расчёт позиции для центрирования
     const centerOffset = Math.floor(visibleItems / 2); // Центральная позиция (2 слева + 2 справа + текущий)
-    const targetPosition = (targetIndex - centerOffset) * itemWidth + itemWidth/2;
-    
+    const targetPosition = ((targetIndex - centerOffset) * itemWidth) + (itemWidth*(Math.random() * (1 - 0.1) + 0.1));
+    console.log((targetIndex - centerOffset) * itemWidth + itemWidth/2);
+    console.log((targetIndex - centerOffset) * itemWidth + 90);
+    console.log(((targetIndex - centerOffset) * itemWidth) + (itemWidth*(Math.random() * (1 - 0.1) + 0.1)));
+    console.log(((targetIndex - centerOffset) * itemWidth) + itemWidth);
+    console.log((targetIndex - centerOffset) * itemWidth + itemWidth);
     // Сброс анимации
     track.style.transition = 'none';
     track.style.transform = `translateX(${containerWidth * -2}px)`;
