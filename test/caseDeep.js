@@ -173,7 +173,7 @@ async function animateRoulette(targetItem) {
     track.style.transition = 'none';
     track.style.transform = `translateX(${-containerWidth * 2}px)`;
     await new Promise(r => requestAnimationFrame(r));
-    track.style.transition = `transform 7s cubic-bezier(0.33, 0, 0.67, 1)`;
+    track.style.transition = `transform 9s cubic-bezier(0.33, 0, 0.67, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 }
