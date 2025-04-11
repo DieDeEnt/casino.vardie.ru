@@ -325,9 +325,7 @@ header {
         flex-direction: column;
     }
     
-    .roulette-item {
-        flex: 0 0 140px;
-    }
+
 }
 
 /* Обновленный CSS для рулетки */
