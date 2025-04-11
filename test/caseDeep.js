@@ -27,18 +27,29 @@ async function loadItems() {
     }
 }
 
+const firstItem = track.children[0];
+console.log('Реальная ширина элемента:', firstItem.offsetWidth); // Должно быть 180px
+console.log('Полученный предмет:', targetItem);
+console.log('Существует в items:', items.some(i => i.id === targetItem.id));
+console.log(
+    'Рассчитанная позиция:', -targetPosition,
+    'Индекс:', targetIndex,
+    'Смещение:', containerWidth / 2
+);
+console.log('Всего элементов в рулетке:', track.children.length);
+console.log('Загруженные предметы:', items);
+// Внутри animateRoulette()
+const targetElement = track.querySelector(`[data-id="${targetItem.id}"]`);
+targetElement.style.boxShadow = '0 0 25px yellow';
+
 function initRoulette() {
     const track = document.getElementById('itemsTrack');
-    // Дублируем предметы для бесшовной анимации
-    const duplicatedItems = [...items, ...items, ...items];
-    
-    track.innerHTML = duplicatedItems.map(item => `
-        <div class="roulette-item ${item.rarity}">
-            <img src="${item.imgURL}" alt="${item.name}">
-                <!-- <div class="item-name">${item.name}</div>
-                <div class="item-rarity">${item.rarity}</div> -->
-        </div>
-    `).join('');
+    track.innerHTML = [...items, ...items, ...items, ...items, ...items]
+        .map(item => `
+            <div class="roulette-item ${item.rarity}">
+                <img src="${item.imgURL}" data-id="${item.id}" alt="${item.name}">
+            </div>
+        `).join('');
 }
 
 function setupEventListeners() {
