@@ -19,14 +19,22 @@
       name VARCHAR(255) NOT NULL,          -- "AK-47 | Красная линия"
       price VARCHAR(255) NOT NULL,           -- Базовая стоимость
       rarity ENUM(
-        'Consumer Grade','Consumer Grade Sniper',
-        'Mil-Spec Grade','StatTrak™ Mil-Spec Grade',
-        'Industrial Grade','StatTrak™ Industrial Grade',
-        'Restricted','StatTrak™ Restricted',
-        'Classified','StatTrak™ Classified',
-        'High Grade','StatTrak™ High Grade',
-        'Covert','★ Covert','StatTrak™ Covert',
-        'Base Grade','',
+        'Consumer Grade',
+        'Mil-Spec Grade',
+        'Industrial Grade',
+        'Restricted',
+        'Classified',
+        'High Grade',
+        'Covert',
+        'StatTrak™ Consumer Grade',
+        'StatTrak™ Mil-Spec Grade',
+        'StatTrak™ Industrial Grade',
+        'StatTrak™ Restricted',
+        'StatTrak™ Classified',
+        'StatTrak™ High Grade',
+        'StatTrak™ Covert',
+        '★ Covert',
+        'Base Grade',
         'Remarkable',
         'Superior',
         'Distinguished',
@@ -34,7 +42,7 @@
         'Exceptional',
         'Master',
         'Exotic',
-        'Contraband','StatTrak™ Contraband'
+        'Contraband'
       ),
       type VARCHAR(255),
       wear VARCHAR(255),
@@ -65,3 +73,11 @@
    LINES TERMINATED BY '\n'
    IGNORE 1 ROWS
    (name,price,rarity,type,wear,souvenir,imgURL);
+
+
+
+   drop table usersInventory;
+   drop table items;
+
+   
+   drop table users;
