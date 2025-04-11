@@ -143,6 +143,42 @@ async function performSingleSpin() {
     }
 }
 
+
+async function animateRoulette(targetItem) {
+    const track = document.getElementById('itemsTrack');
+    const itemWidth = 180; // Совпадает с CSS
+    const containerWidth = track.parentElement.offsetWidth;
+    
+    // 1. Находим индекс в исходном массиве
+    const targetIndex = items.findIndex(item => item.id === targetItem.id);
+    
+    // 2. Учитываем 3 копии элементов
+    const totalClones = 3;
+    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
+    
+    // 3. Новая формула позиции
+    const targetPosition = 
+        (middleCloneSet + targetIndex) * itemWidth - 
+        (containerWidth / 2) + 
+        (itemWidth / 2);
+
+    // 4. Логирование
+    console.log(
+        `Индекс: ${targetIndex}, 
+        Позиция: ${-targetPosition}px,
+        Ширина контейнера: ${containerWidth}px`
+    );
+
+    // 5. Запуск анимации
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${-containerWidth * 2}px)`;
+    await new Promise(r => requestAnimationFrame(r));
+    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    track.style.transform = `translateX(${-targetPosition}px)`;
+    await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
+}
+
+
 // Обновленная функция анимации
 // async function animateRoulette(targetItem) {
 //     const track = document.getElementById('itemsTrack');
@@ -211,44 +247,44 @@ async function performSingleSpin() {
 // }
 
 
-async function animateRoulette(targetItem) {
-    const track = document.getElementById('itemsTrack');
-    const itemsCount = items.length;
-    const itemWidth = 180;
+// async function animateRoulette(targetItem) {
+//     const track = document.getElementById('itemsTrack');
+//     const itemsCount = items.length;
+//     const itemWidth = 180;
     
-    // Находим индекс целевого элемента
-    const targetIndex = items.findIndex(i => i.id === targetItem.id);
+//     // Находим индекс целевого элемента
+//     const targetIndex = items.findIndex(i => i.id === targetItem.id);
     
-    // Рассчитываем позиции
-    const startPosition = -itemsCount * itemWidth; // Центр дублированных элементов
-    const virtualPosition = itemsCount * 2 + targetIndex; // Позиция в виртуальном пространстве
+//     // Рассчитываем позиции
+//     const startPosition = -itemsCount * itemWidth; // Центр дублированных элементов
+//     const virtualPosition = itemsCount * 2 + targetIndex; // Позиция в виртуальном пространстве
     
-    // Сброс анимации и установка начальной позиции
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${startPosition}px)`;
+//     // Сброс анимации и установка начальной позиции
+//     track.style.transition = 'none';
+//     track.style.transform = `translateX(${startPosition}px)`;
     
-    // Принудительный рефлоу для применения стилей
-    await new Promise(resolve => requestAnimationFrame(resolve));
+//     // Принудительный рефлоу для применения стилей
+//     await new Promise(resolve => requestAnimationFrame(resolve));
     
-    // Параметры анимации
-    const targetPosition = -(virtualPosition * itemWidth)+360;
-    const distance = Math.abs(targetPosition - startPosition);
-    const duration = Math.min(Math.max(distance / 2, 3000), 5000);
+//     // Параметры анимации
+//     const targetPosition = -(virtualPosition * itemWidth)+360;
+//     const distance = Math.abs(targetPosition - startPosition);
+//     const duration = Math.min(Math.max(distance / 2, 3000), 5000);
     
-    // Запуск анимации
-    track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${targetPosition}px)`;
+//     // Запуск анимации
+//     track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
+//     track.style.transform = `translateX(${targetPosition}px)`;
     
-    // Ожидание завершения анимации
-    await new Promise(resolve => {
-        track.addEventListener('transitionend', resolve, { once: true });
-    });
+//     // Ожидание завершения анимации
+//     await new Promise(resolve => {
+//         track.addEventListener('transitionend', resolve, { once: true });
+//     });
     
-    // Мгновенный сброс к основной позиции
-    const resetPosition = -(itemsCount + targetIndex) * itemWidth;
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${resetPosition}px)`;
-}
+//     // Мгновенный сброс к основной позиции
+//     const resetPosition = -(itemsCount + targetIndex) * itemWidth;
+//     track.style.transition = 'none';
+//     track.style.transform = `translateX(${resetPosition}px)`;
+// }
 
 
 async function fetchItemData(itemId) {
