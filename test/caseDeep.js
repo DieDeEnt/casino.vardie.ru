@@ -144,147 +144,79 @@ async function performSingleSpin() {
 }
 
 
-async function animateRoulette(targetItem) {
-    const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Совпадает с CSS
-    const containerWidth = track.parentElement.offsetWidth;
-    
-    // 1. Находим индекс в исходном массиве
-    const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-    // 2. Учитываем 3 копии элементов
-    const totalClones = 3;
-    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
-    
-    // 3. Новая формула позиции
-    const targetPosition = 
-        (middleCloneSet + targetIndex) * itemWidth - 
-        (containerWidth / 2) + 
-        (itemWidth / 2);
-
-    // 4. Логирование
-    console.log(
-        `Индекс: ${targetIndex}, 
-        Позиция: ${-targetPosition}px,
-        Ширина контейнера: ${containerWidth}px`
-    );
-
-    // 5. Запуск анимации
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${-containerWidth * 2}px)`;
-    await new Promise(r => requestAnimationFrame(r));
-    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${-targetPosition}px)`;
-    await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
-}
-
-
-// Обновленная функция анимации
 // async function animateRoulette(targetItem) {
 //     const track = document.getElementById('itemsTrack');
-//     const itemWidth = 180;
+//     const itemWidth = 180; // Совпадает с CSS
 //     const containerWidth = track.parentElement.offsetWidth;
     
-//     // Фильтрация уникальных ID
-//     const uniqueItems = [...new Set(items.map(i => i.id))];
-//     const targetIndex = uniqueItems.indexOf(targetItem.id);
-
-//     // Новая формула:
+//     // 1. Находим индекс в исходном массиве
+//     const targetIndex = items.findIndex(item => item.id === targetItem.id);
+    
+//     // 2. Учитываем 3 копии элементов
+//     const totalClones = 3;
+//     const middleCloneSet = Math.floor(totalClones / 2) * items.length;
+    
+//     // 3. Новая формула позиции
 //     const targetPosition = 
-//         (containerWidth * 2) - // Стартовое смещение
-//         (targetIndex * itemWidth) +
+//         (middleCloneSet + targetIndex) * itemWidth - 
+//         (containerWidth / 2) + 
 //         (itemWidth / 2);
 
-//     track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
-//     track.style.transform = `translateX(${-targetPosition}px)`;
-// }
+//     // 4. Логирование
+//     console.log(
+//         `Индекс: ${targetIndex}, 
+//         Позиция: ${-targetPosition}px,
+//         Ширина контейнера: ${containerWidth}px`
+//     );
 
-// async function animateRoulette(targetItem) {
-//     const track = document.getElementById('itemsTrack');
-//     const itemWidth = 180; // Должно совпадать с CSS
-//     const container = track.parentElement;
-    
-//     // Отладочная информация
-//     console.log('[DEBUG] Container width:', container.offsetWidth);
-//     console.log('[DEBUG] Track items:', track.children.length);
-//     console.log('[DEBUG] Target item ID:', targetItem.id);
-
-//     // 1. Найти позицию целевого элемента в оригинальном массиве
-//     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-//     console.log('[DEBUG] Original index:', targetIndex);
-
-//     // 2. Рассчитать позицию в средней копии (второй из трех)
-//     const middleCopyIndex = items.length + targetIndex;
-//     console.log('[DEBUG] Middle copy index:', middleCopyIndex);
-
-//     // 3. Центрирование элемента
-//     const targetPosition = 
-//         middleCopyIndex * itemWidth - // Базовая позиция 
-//         (container.offsetWidth / 2) +  // Смещение к центру
-//         (itemWidth / 2); // Корректировка центра элемента
-
-//     console.log('[DEBUG] Target position:', targetPosition);
-
-//     // 4. Сброс позиции в конец первой копии
+//     // 5. Запуск анимации
 //     track.style.transition = 'none';
-//     const resetPosition = items.length * itemWidth;
-//     track.style.transform = `translateX(-${resetPosition}px)`;
-//     console.log('[DEBUG] Reset position:', -resetPosition);
-
-//     // 5. Дать браузеру обновить DOM
-//     await new Promise(resolve => requestAnimationFrame(resolve));
-    
-//     // 6. Запуск анимации
+//     track.style.transform = `translateX(${-containerWidth * 2}px)`;
+//     await new Promise(r => requestAnimationFrame(r));
 //     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-//     track.style.transform = `translateX(-${targetPosition}px)`;
-//     console.log('[DEBUG] Start animation to:', -targetPosition);
-
-//     // 7. Ожидание завершения
-//     await new Promise(resolve => {
-//         track.addEventListener('transitionend', resolve, { once: true });
-//     });
-//     console.log('[DEBUG] Animation finished');
+//     track.style.transform = `translateX(${-targetPosition}px)`;
+//     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 // }
 
+async function animateRoulette(targetItem) {
+    const track = document.getElementById('itemsTrack');
+    const items = Array.from(track.children);
+    const itemWidth = items[0].offsetWidth;
+    const containerWidth = track.parentElement.offsetWidth;
+    
+    // Создаём клоны для бесконечного эффекта
+    const cloneCount = 3; // Количество копий элементов
+    const totalItems = items.length * cloneCount;
+    
+    // Находим индекс целевого элемента в исходном массиве
+    const targetIndex = items.findIndex(item => item.dataset.id === targetItem.id);
+    
+    // Рассчитываем смещение для центрирования
+    const targetPosition = (targetIndex * itemWidth) 
+        + (items.length * itemWidth * Math.floor(cloneCount/2))
+        - (containerWidth - itemWidth) / 2;
 
-// async function animateRoulette(targetItem) {
-//     const track = document.getElementById('itemsTrack');
-//     const itemsCount = items.length;
-//     const itemWidth = 180;
+    // Начальная позиция для плавного старта
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${-items.length * itemWidth}px)`;
     
-//     // Находим индекс целевого элемента
-//     const targetIndex = items.findIndex(i => i.id === targetItem.id);
+    // Ждём обновления кадра
+    await new Promise(r => requestAnimationFrame(r));
     
-//     // Рассчитываем позиции
-//     const startPosition = -itemsCount * itemWidth; // Центр дублированных элементов
-//     const virtualPosition = itemsCount * 2 + targetIndex; // Позиция в виртуальном пространстве
+    // Запускаем анимацию
+    track.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+    track.style.transform = `translateX(${-targetPosition}px)`;
     
-//     // Сброс анимации и установка начальной позиции
-//     track.style.transition = 'none';
-//     track.style.transform = `translateX(${startPosition}px)`;
-    
-//     // Принудительный рефлоу для применения стилей
-//     await new Promise(resolve => requestAnimationFrame(resolve));
-    
-//     // Параметры анимации
-//     const targetPosition = -(virtualPosition * itemWidth)+360;
-//     const distance = Math.abs(targetPosition - startPosition);
-//     const duration = Math.min(Math.max(distance / 2, 3000), 5000);
-    
-//     // Запуск анимации
-//     track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
-//     track.style.transform = `translateX(${targetPosition}px)`;
-    
-//     // Ожидание завершения анимации
-//     await new Promise(resolve => {
-//         track.addEventListener('transitionend', resolve, { once: true });
-//     });
-    
-//     // Мгновенный сброс к основной позиции
-//     const resetPosition = -(itemsCount + targetIndex) * itemWidth;
-//     track.style.transition = 'none';
-//     track.style.transform = `translateX(${resetPosition}px)`;
-// }
+    // Ожидаем завершения анимации
+    await new Promise(resolve => {
+        track.addEventListener('transitionend', resolve, { once: true });
+    });
+
+    // Сбрасываем позицию без анимации
+    track.style.transition = 'none';
+    const finalPosition = targetPosition % (items.length * itemWidth);
+    track.style.transform = `translateX(${-finalPosition}px)`;
+}
 
 
 async function fetchItemData(itemId) {

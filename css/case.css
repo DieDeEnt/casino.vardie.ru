@@ -118,7 +118,7 @@ header {
     border-radius: 8px;
     background-color: rgba(27, 27, 30, 0.7);
     border: 2px solid var(--primary);
-    
+    padding: 15px 14px;
 
 }
 
