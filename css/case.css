@@ -226,10 +226,11 @@ header {
     position: absolute;
     inset:0px;
     margin:auto;
-    box-shadow: var(--secondary);
+    box-shadow: var(--secondary) 0px 0px 8px;
     width: 2px;
     height: 100%;
-    background:var(--secondary);
+    background:
+    var(--secondary);
     z-index: 20;
 }
 
