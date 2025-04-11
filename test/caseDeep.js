@@ -156,7 +156,7 @@ async function animateRoulette(targetItem) {
 
     // Новая формула:
     const targetPosition = 
-        (containerWidth * 1.5) - // Стартовое смещение
+        (containerWidth * 2) - // Стартовое смещение
         (targetIndex * itemWidth) - 
         (itemWidth / 2);
 
