@@ -61,5 +61,5 @@ try {
     echo json_encode(['itemId' => $item['id']]);
     
 } catch (PDOException $e) {
-    die(json_encode(['error' => $e->getMessage(),$_SESSION['user']," ",$item['id']]));
+    die(json_encode(['error' => $e->getMessage(),$_SESSION['user'],$selectedRarity,$item['id']]));
 }
