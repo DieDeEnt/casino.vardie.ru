@@ -146,6 +146,7 @@ async function animateRoulette(targetItem) {
     const containerWidth = 900; // Ширина контейнера
     const visibleItems = 5; // Количество видимых предметов
     
+    
     // Находим индекс целевого предмета
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
     
