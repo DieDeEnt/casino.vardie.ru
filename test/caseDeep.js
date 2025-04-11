@@ -89,14 +89,24 @@ async function performSingleSpin() {
             credentials: 'include'
         });
 
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
         const text = await response.text();
         console.log(text);
+        
         if (!text) {
             throw new Error('Empty server response');
         }
 
-        const data = JSON.parse(text);
-        
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (jsonError) {
+            throw new Error('Failed to parse JSON: ' + jsonError.message);
+        }
+
         if (!data.itemId) {
             throw new Error('Invalid item data');
         }
