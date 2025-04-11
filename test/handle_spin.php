@@ -5,6 +5,9 @@ authUser();
 $user = currentUser();
 
 header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 $pdo = setPDO();
 
 // Получение случайного предмета
@@ -58,6 +61,16 @@ try {
 
     echo json_encode(['itemId' => $item['id']]);
     
+    file_put_contents('spin.log', 
+    date('[Y-m-d H:i:s]') . " User: {$user['id']}, Item: {$item['id']}\n", 
+    FILE_APPEND
+    );
+
 } catch (PDOException $e) {
     die(json_encode(['error' => $e->getMessage()]));
 }
+
+file_put_contents('spin.log', 
+    date('[Y-m-d H:i:s]') . " User: {$user['id']}, Item: {$item['id']}\n", 
+    FILE_APPEND
+);
