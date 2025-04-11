@@ -2,14 +2,7 @@
     session_start();
     
     require_once __DIR__ . '/config.php';
-    $a = DB_HOST;
-    $b = DB_NAME;
-    $c = DB_USERNAME;
-    $d = DB_PASSWORD;
-    echo DB_HOST;
-    echo DB_NAME;
-    echo DB_USERNAME;
-    echo DB_PASSWORD;
+
 
     function redirect(string $path)
     {
