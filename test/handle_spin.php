@@ -61,5 +61,5 @@ try {
     echo json_encode(['itemId' => $item['id']]);
     
 } catch (PDOException $e) {
-    die(json_encode(['error' => 'Ошибка выполнения операции']));
+    die(json_encode(['error' => $e->getMessage()]));
 }
