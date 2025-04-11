@@ -156,29 +156,16 @@ async function animateRoulette(targetItem) {
     const totalClones = 3;
     const middleCloneSet = Math.floor(totalClones / 2) * items.length;
     
-    targetPosition = 
-    (items.length + targetIndex) * itemWidth - // Средняя копия
-    container.offsetWidth / 2 + 
-    itemWidth / 2;
-
-    if(items.length > 0) {
-        const randomIndex = Math.floor(Math.random() * items.length);
-        const middleCopyStart = items.length; // Начало средней копии
-        const startPosition = 
-            (middleCopyStart + randomIndex) * itemWidth - 
-            track.parentElement.offsetWidth / 2;
-        
-        track.style.transition = 'none';
-        track.style.transform = `translateX(-${startPosition}px)`;
-    }
-
     // 3. Новая формула позиции
     // targetPosition = 
     //     (middleCloneSet + targetIndex) * itemWidth - 
     //     (containerWidth / 2) + 
     //     (itemWidth/2);
 
-
+     targetPosition = 
+    (items.length + targetIndex) * itemWidth - // Средняя копия
+    container.offsetWidth / 2 + 
+    itemWidth / 2;
 
     // 4. Логирование
     console.log(
