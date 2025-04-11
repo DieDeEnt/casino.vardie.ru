@@ -33,6 +33,10 @@ function initRoulette() {
     track.innerHTML = [...items, ...items, ...items].map(item => `
         <div class="roulette-item ${item.rarity}" data-id="${item.id}">
             <img src="${item.imgURL}" alt="${item.name}">
+            <div class="conteinerTitel">
+                <div class="itemsRarity">${item.rarity}</div>
+                <div class="itemsName">${item.name}</div>
+            </div>
         </div>
     `).join('');
 

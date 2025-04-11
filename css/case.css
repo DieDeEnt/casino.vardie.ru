@@ -25,62 +25,50 @@
 }
 
 .Consumer{
-    border-bottom: 2px solid var(--ConsumerGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--ConsumerGrade) 500%)
 }
 
 .Mil-Spec{
-    border-bottom: 2px solid var(--Mil-SpecGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--Mil-SpecGrade) 500%)
 }
 
 .Industrial{
-    border-bottom: 2px solid var(--IndustrialGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--IndustrialGrade) 500%)
 }
 
 .Restricted{
-    border: 0 0 2px 0 solid var(--Restricted);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var( --Restricted) 500%)
 }
 
 .Classified{
-    border: 0 0 2px 0 solid var(--Classified);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--Classified)  500%)
 }
 
 .HighGrade{
-    border: 0 0 2px 0 solid var(--HighGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--HighGrade)   500%)
 }
 
 .Covert{
-    border: 0 0 2px 0 solid var(--Covert);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--Covert)      500%)
 }
 
 .Base{
-    border: 0 0 2px 0 solid var(--BaseGrade);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--BaseGrade)   500%)
 }
 
 .Remarkable{
-    border: 0 0 2px 0 solid var(--Remarkable);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--Remarkable)  500%)
 }
 
 .Master{
-    border: 0 0 2px 0 solid var(--Master);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--Master)     500%)
 }
 
 .Contraband{
-    border: 0 0 2px 0 solid var(--Contraband);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--Contraband) 500%)
 }
 
 .★Covert{
-    border: 0 0 2px 0 solid var(--★Covert);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 10%, var(--★Covert)   500%)
 }
 
@@ -219,16 +207,28 @@ header {
 .roulette-item {
     flex: 0 0 180px;
     flex-shrink: 0; /* Запрещаем сжатие */
-    height: 180px;
+    height: 100%;
+    padding: 16px;
     display: flex;
-    margin: 0;
+    margin: 0px 1px 0px 0px;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
 }
 
+.conteinerTitel {
+    width:100%;
+}
 
+.itemsRarity {
+    width:100%;
+    font-size: 70%;
+}
 
+.itemsName {
+    width:100%;
+}
 
 
 .roulette-item img {
