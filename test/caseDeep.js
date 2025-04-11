@@ -33,12 +33,16 @@ async function loadItems() {
 
 function initRoulette() {
     const track = document.getElementById('itemsTrack');
-    track.innerHTML = [...items, ...items, ...items, ...items, ...items]
-        .map(item => `
-            <div class="roulette-item ${item.rarity}">
-                <img src="${item.imgURL}" data-id="${item.id}" alt="${item.name}">
-            </div>
-        `).join('');
+    track.innerHTML = [...items, ...items, ...items].map(item => `
+        <div class="roulette-item ${item.rarity}" data-id="${item.id}">
+            <img src="${item.imgURL}" alt="${item.name}">
+        </div>
+    `).join('');
+
+    // Добавьте этот блок
+    const firstItem = track.children[0];
+    console.log('[DEBUG] Ширина элемента:', firstItem.offsetWidth, 'px');
+    console.log('[DEBUG] Количество элементов:', track.children.length);
 }
 
 function setupEventListeners() {
@@ -108,6 +112,7 @@ async function performSingleSpin() {
 
         // Чтение сырого ответа и проверка на пустоту
         const text = await response.text();
+        console.log('[DEBUG] Ответ сервера:', text);
         if (!text.trim()) {
             throw new Error('Сервер вернул пустой ответ');
         }
@@ -142,6 +147,11 @@ async function performSingleSpin() {
 // Обновленная функция анимации
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
+
+    console.log('[DEBUG] Полученный предмет:', targetItem);
+    console.log('[DEBUG] Существует в items:', items.some(i => i.id === targetItem.id));
+
+
     const itemWidth = 180; // Совпадает с CSS
     const containerWidth = track.parentElement.offsetWidth; // Динамический расчет ширины
     
@@ -150,12 +160,24 @@ async function animateRoulette(targetItem) {
     if (targetIndex === -1) {
         throw new Error("Предмет не найден в базе данных");
     }
+    const targetElement = track.querySelector(`[data-id="${targetItem.id}"]`);
+if (targetElement) {
+    targetElement.style.outline = '3px solid #00ff00';
+    console.log('[DEBUG] Элемент найден в DOM');
+} else {
+    console.error('[DEBUG] Элемент не найден в DOM');
+}
 
     // 2. Расчет позиции с учетом дублирования элементов
     const totalClones = 3; // Количество дубликатов
     const middleCloneSet = Math.floor(totalClones / 2) * items.length;
     const targetPosition = (middleCloneSet + targetIndex) * itemWidth - (containerWidth / 2) + (itemWidth / 2);
-
+    console.log(
+        `[DEBUG] Рассчет позиции:
+        Index: ${targetIndex}, 
+        TargetPos: ${-targetPosition}px,
+        Container: ${containerWidth}px`
+    );
     // 3. Сброс анимации
     track.style.transition = 'none';
     track.style.transform = `translateX(${-containerWidth * 2}px)`;
@@ -164,25 +186,6 @@ async function animateRoulette(targetItem) {
     await new Promise(r => requestAnimationFrame(r));
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
-
-
-    
-    const targetElement = track.querySelector(`[data-id="${targetItem.id}"]`);
-    targetElement.style.boxShadow = '0 0 25px yellow';
-    const firstItem = track.children[0];
-console.log('Реальная ширина элемента:', firstItem.offsetWidth); // Должно быть 180px
-console.log('Полученный предмет:', targetItem);
-console.log('Существует в items:', items.some(i => i.id === targetItem.id));
-console.log(
-    'Рассчитанная позиция:', -targetPosition,
-    'Индекс:', targetIndex,
-    'Смещение:', containerWidth / 2
-);
-console.log('Всего элементов в рулетке:', track.children.length);
-console.log('Загруженные предметы:', items);
-
-
-
 
 
     // 5. Ожидание завершения
