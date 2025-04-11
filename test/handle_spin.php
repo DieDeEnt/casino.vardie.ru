@@ -11,17 +11,17 @@ $pdo = setPDO();
 try {
     // Система весов
     $rarityWeights = [
-        'Consumer Grade'=>22,
-        'Mil-Spec Grade'=>16,
+        'Consumer Grade'=>18,
+        'Mil-Spec Grade'=>14,
         'Industrial Grade'=>13,
-        'Restricted'=>11,
+        'Restricted'=>13,
         'Classified'=>9,
-        'High Grade'=>7,
+        // 'High Grade'=>7,
         'Covert'=>5,
         // 'StatTrak™ Consumer Grade'=>5,
         'StatTrak™ Mil-Spec Grade'=>8,
-        'StatTrak™ Industrial Grade'=>8,
-        'StatTrak™ Restricted'=>5,
+        // 'StatTrak™ Industrial Grade'=>8,
+        'StatTrak™ Restricted'=>6,
         'StatTrak™ Classified'=>4,
         // 'StatTrak™ High Grade'=>4,
         // 'StatTrak™ Covert'=>0,
