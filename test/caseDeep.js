@@ -86,22 +86,33 @@ async function performSingleSpin() {
     try {
         const response = await fetch('handle_spin.php', {
             method: 'POST',
-            credentials: 'include' // Для передачи сессии
+            credentials: 'include'
         });
+
+        const text = await response.text();
         
-        // Проверка HTTP-статуса
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (!text) {
+            throw new Error('Empty server response');
         }
+
+        const data = JSON.parse(text);
         
-        const text = await response.text(); // Сначала как текст
-        console.log("Raw response:", text);
+        if (!data.itemId) {
+            throw new Error('Invalid item data');
+        }
+
+        const item = items.find(i => i.id === data.itemId);
+        if (!item) {
+            throw new Error('Item not found in local database');
+        }
+
+        animateRoulette(item);
+        updateWinHistory(item);
         
-        const data = JSON.parse(text); // Парсим вручную
-        return data;
-        
+        return item;
+
     } catch (error) {
-        console.error('Spin failed:', error);
+        showError(error.message);
         throw error;
     }
 }
