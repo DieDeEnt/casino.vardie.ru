@@ -161,7 +161,8 @@ header {
     transform: translateX(-50%);
     width: 4px;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, var(--secondary), transparent);
+    background: var(--secondary);
+    box-shadow: var(--secondary) 0 0 8px;
     z-index: 10;
 }
 
@@ -328,18 +329,4 @@ header {
     }
     
 
-}
-
-/* Обновленный CSS для рулетки */
-
-.roulette-container::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    width: 2px;
-    height: 100%;
-    background: #00ff00;
-    box-shadow: 0 0 15px #00ff00;
-    z-index: 1000;
 }
