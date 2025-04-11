@@ -156,7 +156,7 @@ async function animateRoulette(targetItem) {
     // Новая формула:
     const targetPosition = 
         (containerWidth * 2) - // Стартовое смещение
-        (targetIndex * itemWidth) - 
+        (targetIndex * itemWidth) +
         (itemWidth / 2);
 
     track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
