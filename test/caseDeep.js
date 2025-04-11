@@ -163,90 +163,94 @@ async function performSingleSpin() {
 //     track.style.transform = `translateX(${-targetPosition}px)`;
 // }
 
-async function animateRoulette(targetItem) {
-    const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Должно совпадать с CSS
-    const container = track.parentElement;
-    
-    // Отладочная информация
-    console.log('[DEBUG] Container width:', container.offsetWidth);
-    console.log('[DEBUG] Track items:', track.children.length);
-    console.log('[DEBUG] Target item ID:', targetItem.id);
-
-    // 1. Найти позицию целевого элемента в оригинальном массиве
-    const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    console.log('[DEBUG] Original index:', targetIndex);
-
-    // 2. Рассчитать позицию в средней копии (второй из трех)
-    const middleCopyIndex = items.length + targetIndex;
-    console.log('[DEBUG] Middle copy index:', middleCopyIndex);
-
-    // 3. Центрирование элемента
-    const targetPosition = 
-        middleCopyIndex * itemWidth - // Базовая позиция 
-        (container.offsetWidth / 2) +  // Смещение к центру
-        (itemWidth / 2); // Корректировка центра элемента
-
-    console.log('[DEBUG] Target position:', targetPosition);
-
-    // 4. Сброс позиции в конец первой копии
-    track.style.transition = 'none';
-    const resetPosition = items.length * itemWidth;
-    track.style.transform = `translateX(-${resetPosition}px)`;
-    console.log('[DEBUG] Reset position:', -resetPosition);
-
-    // 5. Дать браузеру обновить DOM
-    await new Promise(resolve => requestAnimationFrame(resolve));
-    
-    // 6. Запуск анимации
-    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(-${targetPosition}px)`;
-    console.log('[DEBUG] Start animation to:', -targetPosition);
-
-    // 7. Ожидание завершения
-    await new Promise(resolve => {
-        track.addEventListener('transitionend', resolve, { once: true });
-    });
-    console.log('[DEBUG] Animation finished');
-}
-
-
 // async function animateRoulette(targetItem) {
 //     const track = document.getElementById('itemsTrack');
-//     const container = track.parentElement;
 //     const itemWidth = 180; // Должно совпадать с CSS
+//     const container = track.parentElement;
     
-//     // 1. Проверка данных
-//     console.assert(items.includes(targetItem), 'Target item not in list');
-//     console.log('Target item position:', items.indexOf(targetItem));
+//     // Отладочная информация
+//     console.log('[DEBUG] Container width:', container.offsetWidth);
+//     console.log('[DEBUG] Track items:', track.children.length);
+//     console.log('[DEBUG] Target item ID:', targetItem.id);
 
-//     // 2. Рассчет параметров
-//     const copies = 5; // Количество копий элементов
-//     const targetIndex = items.indexOf(targetItem);
-//     const middleCopy = Math.floor(copies/2) * items.length;
-//     const targetPosition = (middleCopy + targetIndex) * itemWidth - container.offsetWidth/2 + itemWidth/2;
+//     // 1. Найти позицию целевого элемента в оригинальном массиве
+//     const targetIndex = items.findIndex(item => item.id === targetItem.id);
+//     console.log('[DEBUG] Original index:', targetIndex);
 
-//     // 3. Сброс позиции
+//     // 2. Рассчитать позицию в средней копии (второй из трех)
+//     const middleCopyIndex = items.length + targetIndex;
+//     console.log('[DEBUG] Middle copy index:', middleCopyIndex);
+
+//     // 3. Центрирование элемента
+//     const targetPosition = 
+//         middleCopyIndex * itemWidth - // Базовая позиция 
+//         (container.offsetWidth / 2) +  // Смещение к центру
+//         (itemWidth / 2); // Корректировка центра элемента
+
+//     console.log('[DEBUG] Target position:', targetPosition);
+
+//     // 4. Сброс позиции в конец первой копии
 //     track.style.transition = 'none';
-//     track.style.transform = `translateX(-${items.length * itemWidth}px)`;
+//     const resetPosition = items.length * itemWidth;
+//     track.style.transform = `translateX(-${resetPosition}px)`;
+//     console.log('[DEBUG] Reset position:', -resetPosition);
+
+//     // 5. Дать браузеру обновить DOM
+//     await new Promise(resolve => requestAnimationFrame(resolve));
     
-//     // 4. Принудительное обновление стилей
-//     void track.offsetHeight; // Рефлоу
-    
-//     // 5. Запуск анимации
+//     // 6. Запуск анимации
 //     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
 //     track.style.transform = `translateX(-${targetPosition}px)`;
+//     console.log('[DEBUG] Start animation to:', -targetPosition);
 
-//     // 6. Ожидание завершения
+//     // 7. Ожидание завершения
 //     await new Promise(resolve => {
 //         track.addEventListener('transitionend', resolve, { once: true });
 //     });
-
-//     // 7. Фиксация результата
-//     track.style.transition = 'none';
-//     const finalPosition = targetIndex * itemWidth - container.offsetWidth/2 + itemWidth/2;
-//     track.style.transform = `translateX(-${finalPosition}px)`;
+//     console.log('[DEBUG] Animation finished');
 // }
+
+
+async function animateRoulette(targetItem) {
+    const track = document.getElementById('itemsTrack');
+    const container = track.parentElement;
+    const itemWidth = 180; // Должно строго совпадать с CSS
+    
+    // 1. Определяем индекс целевого предмета в оригинальном массиве
+    const targetIndex = items.findIndex(item => item.id === targetItem.id);
+    console.log('Target index:', targetIndex);
+
+    // 2. Количество копий элементов для плавной анимации
+    const COPIES = 3; 
+    
+    // 3. Рассчет позиции в средней копии
+    const middleCopyOffset = Math.floor(COPIES/2) * items.length * itemWidth;
+    
+    // 4. Позиция центра целевого элемента относительно левого края трека
+    const targetCenterPosition = middleCopyOffset + (targetIndex * itemWidth) + (itemWidth / 2);
+    
+    // 5. Требуемое смещение для центрирования элемента
+    const containerCenter = container.offsetWidth / 2;
+    const targetTranslateX = targetCenterPosition - containerCenter;
+    
+    console.log('Calculated translateX:', -targetTranslateX);
+
+    // 6. Сброс позиции в начало первой копии
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${items.length * itemWidth}px)`;
+    
+    // 7. Принудительный рефлоу
+    void track.offsetHeight;
+
+    // 8. Запуск анимации
+    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    track.style.transform = `translateX(-${targetTranslateX}px)`;
+
+    // 9. Фиксация конечной позиции
+    await new Promise(resolve => 
+        track.addEventListener('transitionend', resolve, { once: true })
+    );
+}
 
 
 async function fetchItemData(itemId) {
