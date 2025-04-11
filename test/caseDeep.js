@@ -14,7 +14,11 @@ async function loadItems() {
     try {
         const response = await fetch('get_items.php');
         const data = await response.json();
-        if(data.error) throw new Error(data.error);
+        
+        // Валидация данных
+        if (!Array.isArray(data) || !data.every(i => i.id && i.name)) {
+            throw new Error('Некорректный формат предметов');
+        }
         
         items = data;
         initRoulette();
@@ -65,15 +69,21 @@ async function startSpin() {
     
     try {
         const spinResults = [];
-        for(let i = 0; i < selectedCount; i++) {
+        for (let i = 0; i < selectedCount; i++) {
             const result = await performSingleSpin();
-            spinResults.push(result);
-            updateBalance(-10);
-            totalSpins++;
+            if (result && result.id) { // Добавлена проверка
+                spinResults.push(result);
+                updateBalance(-10);
+                totalSpins++;
+            } else {
+                throw new Error('Не удалось получить предмет');
+            }
         }
         
-        showResults(spinResults);
-        updateInventory();
+        if (spinResults.length > 0) {
+            showResults(spinResults);
+            updateInventory();
+        }
     } catch (error) {
         showError(error.message);
     } finally {
@@ -91,7 +101,30 @@ async function performSingleSpin() {
             credentials: 'include'
         });
 
-        // ... предыдущий код ...
+                // Проверка HTTP-статуса
+        if (!response.ok) {
+            throw new Error(`Ошибка сервера: ${response.status}`);
+        }
+
+        // Чтение сырого ответа и проверка на пустоту
+        const text = await response.text();
+        if (!text.trim()) {
+            throw new Error('Сервер вернул пустой ответ');
+        }
+
+        // Парсинг JSON с обработкой ошибок
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            console.error('Невалидный JSON:', text);
+            throw new Error('Ошибка обработки данных');
+        }
+
+        // Проверка наличия itemId
+        if (!data.itemId) {
+            throw new Error('Некорректные данные предмета');
+        }
 
         const item = items.find(i => i.id == data.itemId);
         if (!item) throw new Error('Item not found');
@@ -101,7 +134,8 @@ async function performSingleSpin() {
         
         return item;
     } catch (error) {
-        // ... обработка ошибок ...
+        showError(error.message);
+        throw error;
     }
 }
 
