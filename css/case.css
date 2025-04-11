@@ -109,7 +109,7 @@ header {
 }
 
 .roulette-container {
-    height: 180px;
+    /* height: 180px; */
     max-width: 900px;
     margin: 0 auto;
     width: 100%;
@@ -128,7 +128,8 @@ header {
     position: absolute;
     position: relative;
     left: 0;
-    gap: 0;
+    gap: 0 !important; /* Убираем промежутки */
+    padding: 0 50%; /* Центрирование */
     transform: none;
     transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
     will-change: transform;
@@ -137,6 +138,7 @@ header {
 
 .roulette-item {
     flex: 0 0 180px;
+    flex-shrink: 0; /* Запрещаем сжатие */
     height: 180px;
     display: flex;
     box-sizing: border-box;
