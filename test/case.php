@@ -30,24 +30,17 @@
         </header>
         
         <div class="case-container">
-            <!-- <div class="case-display">
+            <div class="case-display">
                 <img src="/icon/caseImg1.png" alt="CS:GO Case" class="case-image" id="caseImage">
                 <h2 class="case-name">KukenCase</h2>
                 <p class="case-price">Prise: 10$</p>
                 <div id="casesOpened"></div>
                 <div id="totalValue"></div>
-            </div> -->
+            </div>
 
             <div class="roulette-section">
                 <div class="roulette-header">
                     <h3 class="section-title">Opening case</h3>
-                    <div class="win-history">
-                        <div class="win-item">$</div>
-                        <div class="win-item">R</div>
-                        <div class="win-item">C</div>
-                        <div class="win-item">L</div>
-                        <div class="win-item">M</div>
-                    </div>
                 </div>
                 
                 <div class="roulette-container">
