@@ -33,16 +33,12 @@ async function loadItems() {
 
 function initRoulette() {
     const track = document.getElementById('itemsTrack');
-    track.innerHTML = [...items, ...items, ...items].map(item => `
-        <div class="roulette-item ${item.rarity}" data-id="${item.id}">
-            <img src="${item.imgURL}" alt="${item.name}">
-        </div>
-    `).join('');
-
-    // Добавьте этот блок
-    const firstItem = track.children[0];
-    console.log('[DEBUG] Ширина элемента:', firstItem.offsetWidth, 'px');
-    console.log('[DEBUG] Количество элементов:', track.children.length);
+    track.innerHTML = [...items, ...items, ...items]
+        .map(item => `
+            <div class="roulette-item">
+                <img src="${item.imgURL}" data-id="${item.id}" alt="${item.name}">
+            </div>
+        `).join('');
 }
 
 function setupEventListeners() {
@@ -150,35 +146,41 @@ async function animateRoulette(targetItem) {
     const itemWidth = 180; // Совпадает с CSS
     const containerWidth = track.parentElement.offsetWidth;
     
-    // 1. Находим индекс в исходном массиве
+    // 1. Находим индекс целевого предмета
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
     
-    // 2. Учитываем 3 копии элементов
-    const totalClones = 3;
-    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
+    // 2. Настройки для движения справа налево
+    const totalClones = 3; // Количество копий элементов
+    const startOffset = containerWidth; // Стартовая позиция справа
+    const clonesOffset = items.length * itemWidth * Math.floor(totalClones / 2);
     
-    // 3. Новая формула позиции
+    // 3. Формула позиции с учетом направления
     const targetPosition = 
-        (middleCloneSet + targetIndex) * itemWidth - 
+        (targetIndex * itemWidth) + 
+        clonesOffset - 
         (containerWidth / 2) + 
         (itemWidth / 2);
 
     // 4. Логирование
     console.log(
         `Индекс: ${targetIndex}, 
-        Позиция: ${-targetPosition}px,
+        Позиция: ${targetPosition}px,
         Ширина контейнера: ${containerWidth}px`
     );
 
-    // 5. Запуск анимации
+    // 5. Анимация
     track.style.transition = 'none';
-    track.style.transform = `translateX(${-containerWidth * 2}px)`;
+    track.style.transform = `translateX(${startOffset}px)`; // Старт справа
+    
     await new Promise(r => requestAnimationFrame(r));
+    
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${-targetPosition}px)`;
-    await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
+    track.style.transform = `translateX(-${targetPosition}px)`; // Движение влево
+    
+    await new Promise(resolve => {
+        track.addEventListener('transitionend', resolve, { once: true });
+    });
 }
-
 
 
 async function fetchItemData(itemId) {
