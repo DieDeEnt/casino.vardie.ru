@@ -157,7 +157,7 @@ async function animateRoulette(targetItem) {
     targetPosition = 
         (middleCloneSet + targetIndex) * itemWidth - 
         (containerWidth / 2) + 
-        (itemWidth / 2);
+        (itemWidth*Math.random() * (0.99 - 0.01) + 0.01);
 
     // 4. Логирование
     console.log(
@@ -175,66 +175,11 @@ async function animateRoulette(targetItem) {
     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 }
 
-// async function animateRoulette(targetItem) {
-//     const track = document.getElementById('itemsTrack');
-//     const items = Array.from(track.children);
-//     const itemWidth = items[0].offsetWidth;
-//     const containerWidth = track.parentElement.offsetWidth;
-    
-//     // Создаём клоны для бесконечного эффекта
-//     const cloneCount = 3; // Количество копий элементов
-//     const totalItems = items.length * cloneCount;
-    
-//     // Находим индекс целевого элемента в исходном массиве
-//     const targetIndex = items.findIndex(item => item.dataset.id === targetItem.id);
-    
-//     // Рассчитываем смещение для центрирования
-//     const targetPosition = (targetIndex * itemWidth) 
-//         + (items.length * itemWidth * Math.floor(cloneCount/2))
-//         - (containerWidth - itemWidth) / 2;
-
-//     // Начальная позиция для плавного старта
-//     track.style.transition = 'none';
-//     track.style.transform = `translateX(${-items.length * itemWidth}px)`;
-    
-//     // Ждём обновления кадра
-//     await new Promise(r => requestAnimationFrame(r));
-    
-//     // Запускаем анимацию
-//     track.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-//     track.style.transform = `translateX(${-targetPosition}px)`;
-    
-//     // Ожидаем завершения анимации
-//     await new Promise(resolve => {
-//         track.addEventListener('transitionend', resolve, { once: true });
-//     });
-
-//     // Сбрасываем позицию без анимации
-//     track.style.transition = 'none';
-//     const finalPosition = targetPosition % (items.length * itemWidth);
-//     track.style.transform = `translateX(${-finalPosition}px)`;
-// }
-
-
 async function fetchItemData(itemId) {
     const response = await fetch(`get_item.php?id=${itemId}`);
     const data = await response.json();
     return data;
 }
-
-// function animateRoulette(targetItem) {
-//     const track = document.getElementById('itemsTrack');
-//     const itemsWidth = 180 * items.length * 3; // 3 дублированных набора
-//     const targetPosition = (items.indexOf(targetItem) + items.length) * 180;
-    
-//     track.style.transition = 'none';
-//     track.style.transform = `translateX(-${itemsWidth}px)`;
-    
-//     requestAnimationFrame(() => {
-//         track.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-//         track.style.transform = `translateX(-${targetPosition}px)`;
-//     });
-// }
 
 function updateWinHistory(item) {
     const history = document.querySelector('.win-history');
