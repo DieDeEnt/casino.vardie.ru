@@ -142,7 +142,6 @@ async function performSingleSpin() {
 // Обновленная функция анимации
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const items = await fetchItems(); // Ваша функция получения предметов
     const itemWidth = 180; // Должно совпадать с CSS
     const containerWidth = 900; // Ширина контейнера
     const visibleItems = 5; // Количество видимых предметов
@@ -156,12 +155,12 @@ async function animateRoulette(targetItem) {
 
     // Сброс анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(0}px)`;
+    track.style.transform = `translateX(${containerWidth * 2}px)`;
     
     // Запуск анимации
     await new Promise(r => requestAnimationFrame(r));
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${targetPosition + 180*(Math.random() * (1 - 0.1) + 0.1)}px)`;
+    track.style.transform = `translateX(${targetPosition}px)`;
     
     // Ожидание завершения
     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
