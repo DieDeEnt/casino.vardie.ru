@@ -160,7 +160,7 @@ async function animateRoulette(targetItem) {
     const targetPosition = 
         (middleCloneSet + targetIndex) * itemWidth - 
         (containerWidth / 2) + 
-        (itemWidth / 2);
+        (itemWidth / 2) -360;
 
     // 4. Логирование
     console.log(
