@@ -30,7 +30,7 @@ function initRoulette() {
     
     track.innerHTML = duplicatedItems.map(item => `
         <div class="roulette-item ${item.rarity}">
-            <img src="${item.image}" alt="${item.name}">
+            <img src="${item.imgURL}" alt="${item.name}">
             <div class="item-name">${item.name}</div>
             <div class="item-rarity">${item.rarity}</div>
         </div>
@@ -83,21 +83,35 @@ async function startSpin() {
 }
 
 async function performSingleSpin() {
-    const response = await fetch('handle_spin.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
+    try {
+        const response = await fetch('handle_spin.php', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        const data = await response.json();
+        
+        // Проверьте, что данные приходят корректно
+        console.log('Server response:', data); 
+        
+        if (!data.itemId) {
+            throw new Error('Item ID не получен');
         }
-    });
-    
-    const data = await response.json();
-    if(data.error) throw new Error(data.error);
+        
+        // Получите полные данные предмета по ID
+        const item = await fetchItemData(data.itemId); 
+        return item;
+        
+    } catch (error) {
+        console.error('Ошибка в performSingleSpin:', error);
+        throw error;
+    }
+}
 
-    const targetItem = items.find(item => item.id === data.item_id);
-    animateRoulette(targetItem);
-    updateWinHistory(targetItem);
-    
-    return targetItem;
+async function fetchItemData(itemId) {
+    const response = await fetch(`get_item.php?id=${itemId}`);
+    const data = await response.json();
+    return data;
 }
 
 function animateRoulette(targetItem) {
@@ -134,7 +148,7 @@ function showResults(results) {
     const resultPrice = document.getElementById('resultPrice');
     
     resultDiv.style.display = 'block';
-    resultImage.src = results[0].image;
+    resultImage.src = results[0].imgURL;
     resultName.textContent = results[0].name;
     resultRarity.className = `rarity rarity-${results[0].rarity}`;
     resultRarity.textContent = results[0].rarity;
@@ -154,7 +168,7 @@ async function updateInventory() {
         const container = document.getElementById('inventory');
         container.innerHTML = inventory.map(item => `
             <div class="inventory-item ${item.rarity}">
-                <img src="${item.image}" alt="${item.name}">
+                <img src="${item.imgURL}" alt="${item.name}">
                 <div class="item-name">${item.name}</div>
             </div>
         `).join('');

@@ -59,5 +59,5 @@ try {
     echo json_encode(['itemId' => $item['id']]);
     
 } catch (PDOException $e) {
-    die(json_encode(['error' => $e->getMessage(),$user['id'],$selectedRarity,$item['id']]));
+    die(json_encode(['error' => $e->getMessage()]));
 }
