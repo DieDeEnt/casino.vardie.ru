@@ -166,28 +166,30 @@ async function performSingleSpin() {
 
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Должно совпадать с CSS
-    const visibleItems = 5; // Количество видимых предметов
-    
-    // 1. Находим индекс целевого предмета
+    const itemWidth = 180;
+    const visibleItems = 5;
+    const repetitions = 3; // 3 копии массива
+
+    // Находим индекс в оригинальном массиве
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
     
-    // 2. Рассчитываем позицию для плавной остановки
-    const repetitions = 3; // Количество повторений элементов
+    // Рассчитываем позицию в средней копии
     const middleSetStart = items.length * Math.floor(repetitions / 2);
-    const targetPosition = -(middleSetStart + targetIndex) * itemWidth + (itemWidth * visibleItems)/2;
+    const targetPosition = -(middleSetStart + targetIndex) * itemWidth + 
+                         (track.parentElement.offsetWidth / 2 - itemWidth / 2);
 
-    // 3. Сброс анимации
+    // Сброс в начальную позицию
     track.style.transition = 'none';
     track.style.transform = `translateX(${-items.length * itemWidth}px)`;
     
-    // 4. Запуск анимации
+    // Даем браузеру время применить сброс
     await new Promise(resolve => requestAnimationFrame(resolve));
     
+    // Запускаем анимацию
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${targetPosition}px)`;
 
-    // 5. Ожидание завершения
+    // Ожидаем завершения анимации
     await new Promise(resolve => {
         track.addEventListener('transitionend', resolve, { once: true });
     });
