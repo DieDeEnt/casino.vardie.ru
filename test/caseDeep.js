@@ -146,7 +146,7 @@ async function performSingleSpin() {
 
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Совпадает с CSS
+    const itemWidth = 182; // Совпадает с CSS
     const containerWidth = track.parentElement.offsetWidth;
     
     // 1. Находим индекс в исходном массиве
@@ -160,7 +160,7 @@ async function animateRoulette(targetItem) {
     targetPosition = 
         (middleCloneSet + targetIndex) * itemWidth - 
         (containerWidth / 2) + 
-        (itemWidth*Math.random() * (0.8 - 0.2) + 0.2);
+        (itemWidth*Math.random() * (0.4 - 0.2) + 0.2);
 
     // 4. Логирование
     console.log(
@@ -173,7 +173,7 @@ async function animateRoulette(targetItem) {
     track.style.transition = 'none';
     track.style.transform = `translateX(${-containerWidth * 2}px)`;
     await new Promise(r => requestAnimationFrame(r));
-    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    track.style.transition = `transform 7s cubic-bezier(0.33, 0, 0.67, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 }
