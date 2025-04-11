@@ -11,7 +11,7 @@
     <!-- Page Name -->
     <title>Welcome</title>
     <!-- Page Logo -->
-    <link rel="shortcut icon" href="icon/logo.png" type="image/png" />
+    <link rel="shortcut icon" href="icon/caseImg1.png" type="image/png" />
 
 
     <!-- main.css -->

@@ -10,9 +10,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Page Name -->
-    <title>KukenCase | CS:GO Case Opening</title>
+    <title>KukenCase Opening</title>
     <!-- Page Logo -->
-    <link rel="shortcut icon" href="/icon/logo.png" type="image/png" />
+    <link rel="shortcut icon" href="/icon/caseImg1.png" type="image/png" />
 
     <!-- main.css -->
     <link rel="stylesheet" href="/css/main.css">
@@ -37,7 +37,7 @@
         <div class="case-container">
             <div class="case-display">
                 <img src="/icon/caseImg1.png" alt="CS:GO Case" class="case-image" id="caseImage">
-                <h2 class="case-name">Operation Broken Fang Case</h2>
+                <h2 class="case-name">KukenCase</h2>
                 <p class="case-price">Prise: 10$</p>
                 <div id="casesOpened"></div>
                 <div id="totalValue"></div>
