@@ -60,12 +60,12 @@ try {
             break;
         }
     }
-
+    echo json_encode([$selectedRarity]);
     // Выбор предмета выбранной редкости
     $stmt = $pdo->prepare("SELECT * FROM items WHERE rarity = ? ORDER BY RAND() LIMIT 1");
     $stmt->execute([$selectedRarity]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
-
+    echo json_encode([$item]);
     // Добавление в инвентарь
     $stmt = $pdo->prepare("INSERT INTO usersInventory (userId, itemId) VALUES (?, ?)");
     $stmt->execute([$_SESSION['user'], $item['id']]);
