@@ -99,17 +99,7 @@
             // This would be replaced with the full initialization code
             // from the previous example
             console.log("Site loaded");
-            const firstItem = track.children[0];
-console.log('Реальная ширина элемента:', firstItem.offsetWidth); // Должно быть 180px
-console.log('Полученный предмет:', targetItem);
-console.log('Существует в items:', items.some(i => i.id === targetItem.id));
-console.log(
-    'Рассчитанная позиция:', -targetPosition,
-    'Индекс:', targetIndex,
-    'Смещение:', containerWidth / 2
-);
-console.log('Всего элементов в рулетке:', track.children.length);
-console.log('Загруженные предметы:', items);
+
         };
     </script>
     <script src="/test/caseDeep.js"></script>
