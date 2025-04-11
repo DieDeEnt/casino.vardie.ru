@@ -142,17 +142,15 @@ header {
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
-    /* background-color: rgba(35, 35, 40, 0.6);
-    border-right: 1px solid rgba(176, 74, 53, 0.3); */
-    background: red !important;
-    border: 2px solid white !important;
+    background-color: rgba(35, 35, 40, 0.6);
+    border-right: 1px solid rgba(176, 74, 53, 0.3);
 }
 
 
 
 .roulette-item img {
-    width: 100px;
-    height: 100px;
+    width: 180px;
+    height: 180px;
     object-fit: contain;
     filter: drop-shadow(0 0 5px rgba(235, 176, 144, 0.3));
 }
