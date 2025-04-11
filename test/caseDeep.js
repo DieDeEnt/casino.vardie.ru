@@ -84,26 +84,24 @@ async function startSpin() {
 
 async function performSingleSpin() {
     try {
-        const response = await fetch('handle_spin.php', { 
+        const response = await fetch('handle_spin.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' }
+            credentials: 'include' // Для передачи сессии
         });
         
-        const data = await response.json();
-        
-        // Проверьте, что данные приходят корректно
-        console.log('Server response:', data); 
-        
-        if (!data.itemId) {
-            throw new Error('Item ID не получен');
+        // Проверка HTTP-статуса
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        // Получите полные данные предмета по ID
-        const item = await fetchItemData(data.itemId); 
-        return item;
+        const text = await response.text(); // Сначала как текст
+        console.log("Raw response:", text);
+        
+        const data = JSON.parse(text); // Парсим вручную
+        return data;
         
     } catch (error) {
-        console.error('Ошибка в performSingleSpin:', error);
+        console.error('Spin failed:', error);
         throw error;
     }
 }
