@@ -213,43 +213,31 @@ async function performSingleSpin() {
 
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const container = track.parentElement;
-    const itemWidth = 180; // Должно строго совпадать с CSS
+    const itemWidth = 180; // Должно совпадать с CSS
+    const visibleItems = 5; // Количество видимых предметов
     
-    // 1. Определяем индекс целевого предмета в оригинальном массиве
+    // 1. Находим индекс целевого предмета
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    console.log('Target index:', targetIndex);
+    
+    // 2. Рассчитываем позицию для плавной остановки
+    const repetitions = 3; // Количество повторений элементов
+    const middleSetStart = items.length * Math.floor(repetitions / 2);
+    const targetPosition = -(middleSetStart + targetIndex) * itemWidth + (itemWidth * visibleItems)/2;
 
-    // 2. Количество копий элементов для плавной анимации
-    const COPIES = 3; 
-    
-    // 3. Рассчет позиции в средней копии
-    const middleCopyOffset = Math.floor(COPIES/2) * items.length * itemWidth;
-    
-    // 4. Позиция центра целевого элемента относительно левого края трека
-    const targetCenterPosition = middleCopyOffset + (targetIndex * itemWidth) + (itemWidth / 2);
-    
-    // 5. Требуемое смещение для центрирования элемента
-    const containerCenter = container.offsetWidth / 2;
-    const targetTranslateX = targetCenterPosition - containerCenter;
-    
-    console.log('Calculated translateX:', -targetTranslateX);
-
-    // 6. Сброс позиции в начало первой копии
+    // 3. Сброс анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(-${items.length * itemWidth}px)`;
+    track.style.transform = `translateX(${-items.length * itemWidth}px)`;
     
-    // 7. Принудительный рефлоу
-    void track.offsetHeight;
-
-    // 8. Запуск анимации
+    // 4. Запуск анимации
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(-${targetTranslateX}px)`;
+    track.style.transform = `translateX(${targetPosition}px)`;
 
-    // 9. Фиксация конечной позиции
-    await new Promise(resolve => 
-        track.addEventListener('transitionend', resolve, { once: true })
-    );
+    // 5. Ожидание завершения
+    await new Promise(resolve => {
+        track.addEventListener('transitionend', resolve, { once: true });
+    });
 }
 
 
