@@ -142,7 +142,7 @@ header {
     height: 180px;
     display: flex;
     margin: 0;
-    border: none !important;
+    
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
