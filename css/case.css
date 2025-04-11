@@ -412,3 +412,14 @@ header {
     
 
 }
+
+
+.roulette-container {
+    direction: rtl; /* Инвертируем направление */
+    overflow: hidden;
+}
+
+.roulette-items {
+    direction: ltr; /* Возвращаем нормальное направление элементов */
+    flex-wrap: nowrap;
+}
