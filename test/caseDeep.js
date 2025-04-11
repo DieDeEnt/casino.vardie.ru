@@ -154,11 +154,10 @@ async function animateRoulette(targetItem) {
     const uniqueItems = [...new Set(items.map(i => i.id))];
     const targetIndex = uniqueItems.indexOf(targetItem.id);
 
-    // Новая формула:
     const targetPosition = 
-        (containerWidth * 1.5) - // Стартовое смещение
-        (targetIndex * itemWidth) - 
-        (itemWidth / 2);
+    (targetIndex * itemWidth) - 
+    (containerWidth / 2) + 
+    (itemWidth / 2);
 
     track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
