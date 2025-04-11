@@ -156,12 +156,12 @@ async function animateRoulette(targetItem) {
 
     // Сброс анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(${containerWidth * -2}px)`;
+    track.style.transform = `translateX(0}px)`;
     
     // Запуск анимации
     await new Promise(r => requestAnimationFrame(r));
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${-targetPosition}px)`;
+    track.style.transform = `translateX(${-targetPosition + 180*(Math.random() * (1 - 0.1) + 0.1)}px)`;
     
     // Ожидание завершения
     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
