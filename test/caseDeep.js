@@ -157,7 +157,7 @@ async function animateRoulette(targetItem) {
     const targetPosition = 
     (targetIndex * itemWidth) - 
     (containerWidth / 2) + 
-    (itemWidth/3);
+    (itemWidth / 2);
 
     track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
