@@ -7,11 +7,6 @@ $user = currentUser();
 header('Content-Type: application/json');
 $pdo = setPDO();
 
-// // Проверка авторизации
-// if (!isset($_SESSION['user']['id'])) {
-//     die(json_encode(['error' => 'Требуется авторизация']));
-// }
-
 // Получение случайного предмета
 try {
     // Система весов
@@ -55,12 +50,10 @@ try {
             break;
         }
     }
-    echo json_encode([$selectedRarity]);
     // Выбор предмета выбранной редкости
     $stmt = $pdo->prepare("SELECT * FROM items WHERE rarity = ? ORDER BY RAND() LIMIT 1");
     $stmt->execute([$selectedRarity]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
-    echo json_encode([$item]);
     // Добавление в инвентарь
     $stmt = $pdo->prepare("INSERT INTO usersInventory (userId, itemId) VALUES (?, ?)");
     $stmt->execute([$_SESSION['user'], $item['id']]);
