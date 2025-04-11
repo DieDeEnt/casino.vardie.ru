@@ -5,7 +5,51 @@
     --light-accent: #EBB090;
     --neutral: #C1A0A1;
     --cool-neutral: #B2B2BC;
+
+
+
+
+    --ConsumerGrade:rgb(176, 195, 217);
+    --Mil-SpecGrade:rgb(75, 105, 255);
+    --IndustrialGrade:rgb(94, 152, 217);
+    --Restricted:rgb(136, 71, 255);
+    --Classified:rgb(211, 44, 230);
+    --HighGrade:rgb(75, 105, 255);
+    --Covert:rgb(235, 75, 75);
+    --BaseGrade:rgb(176, 195, 217);
+    --Remarkable:rgb(136, 71, 255);
+    --Master:rgb(235, 75, 75);
+    --Contraband:rgb(228, 174, 57);
+    --★Covert:rgb(255, 215, 0);
 }
+
+.roulette-item .Consumer .Grade{
+    border-bottom: 2px solid var(--ConsumerGrade);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--ConsumerGrade) 100%)
+}
+
+.roulette-item .Mil-Spec .Grade{
+    border-bottom: 2px solid var(--Mil-SpecGrade);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Mil-SpecGrade) 100%)
+}
+
+.roulette-item .Industrial .Grade{
+    border-bottom: 2px solid var(--IndustrialGrade);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--IndustrialGrade) 100%)
+}
+
+.roulette-item  .Restricted{
+    border: 0 0 2px 0 solid var(--Restricted);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var( --Restricted) 100%)
+}
+
+.roulette-item  .Classified{
+    border: 0 0 2px 0 solid var(--Classified);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Classified) 100%)
+}
+
+
+
 
 * {
     box-sizing: border-box;
@@ -148,10 +192,7 @@ header {
     align-items: center;
 }
 
-.roulette-item {
-    border: 0 0 2px 0 solid rgba(217, 87, 81, 0.25);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, rgba(217, 87, 81, 0.25) 100%)
-}
+
 
 
 
@@ -159,7 +200,7 @@ header {
     width: 180px;
     height: 180px;
     object-fit: contain;
-    filter: drop-shadow(0 0 5px rgba(235, 176, 144, 0.3));
+    /* filter: drop-shadow(0 0 5px rgba(235, 176, 144, 0.3)); */
 }
 
 .indicator {
