@@ -142,31 +142,29 @@ async function performSingleSpin() {
 // Обновленная функция анимации
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180; // Совпадает с CSS
-    const containerWidth = 900; // 5 предметов * 180px
-    const visibleItems = 5;
+    const items = await fetchItems(); // Ваша функция получения предметов
+    const itemWidth = 180; // Должно совпадать с CSS
+    const containerWidth = 900; // Ширина контейнера
+    const visibleItems = 5; // Количество видимых предметов
     
     // Находим индекс целевого предмета
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
     
-    // Новая формула позиционирования
-    const targetPosition = (targetIndex * itemWidth) - (containerWidth / 2) + (itemWidth / 2);
+    // Расчёт позиции для центрирования
+    const centerOffset = Math.floor(visibleItems / 2); // Центральная позиция (2 слева + 2 справа + текущий)
+    const targetPosition = (targetIndex - centerOffset) * itemWidth + itemWidth*(Math.random() * (0,9 - 0,1) + 0,1);
     
-    // Лог для отладки
-    console.log(`Calculated position: ${-targetPosition}px | Item index: ${targetIndex}`);
-
     // Сброс анимации
     track.style.transition = 'none';
-    track.style.transform = `translateX(${-containerWidth * 3}px)`;
+    track.style.transform = `translateX(${containerWidth * -2}px)`;
     
+    // Запуск анимации
     await new Promise(r => requestAnimationFrame(r));
-    
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${-targetPosition}px)`;
-
-    await new Promise(resolve => {
-        track.addEventListener('transitionend', resolve, { once: true });
-    });
+    
+    // Ожидание завершения
+    await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 }
 
 async function fetchItemData(itemId) {
