@@ -38,16 +38,50 @@
     background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--IndustrialGrade) 100%)
 }
 
-.roulette-item  .Restricted{
+.Restricted{
     border: 0 0 2px 0 solid var(--Restricted);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var( --Restricted) 100%)
 }
 
-.roulette-item  .Classified{
+.Classified{
     border: 0 0 2px 0 solid var(--Classified);
     background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Classified) 100%)
 }
 
+.HighGrade{
+    border: 0 0 2px 0 solid var(--HighGrade);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--HighGrade) 100%)
+}
+
+.Covert{
+    border: 0 0 2px 0 solid var(--Covert);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Covert) 100%)
+}
+
+.Base{
+    border: 0 0 2px 0 solid var(--BaseGrade);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--BaseGrade) 100%)
+}
+
+.Remarkable{
+    border: 0 0 2px 0 solid var(--Remarkable);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Remarkable) 100%)
+}
+
+.Master{
+    border: 0 0 2px 0 solid var(--Master);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Master) 100%)
+}
+
+.Contraband{
+    border: 0 0 2px 0 solid var(--Contraband);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Contraband) 100%)
+}
+
+.★Covert{
+    border: 0 0 2px 0 solid var(--★Covert);
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--★Covert) 100%)
+}
 
 
 
