@@ -28,9 +28,6 @@ async function loadItems() {
 }
 
 
-// Внутри animateRoulette()
-
-
 function initRoulette() {
     const track = document.getElementById('itemsTrack');
     track.innerHTML = [...items, ...items, ...items].map(item => `
@@ -157,10 +154,10 @@ async function animateRoulette(targetItem) {
     const middleCloneSet = Math.floor(totalClones / 2) * items.length;
     
     // 3. Новая формула позиции
-    // targetPosition = 
-    //     (middleCloneSet + targetIndex) * itemWidth - 
-    //     (containerWidth / 2) + 
-    //     (itemWidth / 2) -360;
+    targetPosition = 
+        (middleCloneSet + targetIndex) * itemWidth - 
+        (containerWidth / 2) + 
+        (itemWidth / 2);
 
     // 4. Логирование
     console.log(
@@ -225,19 +222,19 @@ async function fetchItemData(itemId) {
     return data;
 }
 
-function animateRoulette(targetItem) {
-    const track = document.getElementById('itemsTrack');
-    const itemsWidth = 180 * items.length * 3; // 3 дублированных набора
-    const targetPosition = (items.indexOf(targetItem) + items.length) * 180;
+// function animateRoulette(targetItem) {
+//     const track = document.getElementById('itemsTrack');
+//     const itemsWidth = 180 * items.length * 3; // 3 дублированных набора
+//     const targetPosition = (items.indexOf(targetItem) + items.length) * 180;
     
-    track.style.transition = 'none';
-    track.style.transform = `translateX(-${itemsWidth}px)`;
+//     track.style.transition = 'none';
+//     track.style.transform = `translateX(-${itemsWidth}px)`;
     
-    requestAnimationFrame(() => {
-        track.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-        track.style.transform = `translateX(-${targetPosition}px)`;
-    });
-}
+//     requestAnimationFrame(() => {
+//         track.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
+//         track.style.transform = `translateX(-${targetPosition}px)`;
+//     });
+// }
 
 function updateWinHistory(item) {
     const history = document.querySelector('.win-history');
