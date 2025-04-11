@@ -145,7 +145,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transform: scaleX(-1);
+    /* transform: scaleX(-1); */
     background-color: rgba(35, 35, 40, 0.6);
     border-right: 1px solid rgba(176, 74, 53, 0.3);
 }
