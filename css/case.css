@@ -129,7 +129,7 @@ header {
     position: absolute;
     position: relative;
     left: 0;
-    gap: 0 !important; /* Убираем промежутки */
+    gap: 1; /* Убираем промежутки */
 
     transform: none;
     transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -148,7 +148,7 @@ header {
     justify-content: center;
     align-items: center;
     background-color: rgba(35, 35, 40, 0.6);
-    border-right: 1px solid rgba(176, 74, 53, 0.3);
+    /* border-right: 1px solid rgba(176, 74, 53, 0.3); */
 }
 
 
