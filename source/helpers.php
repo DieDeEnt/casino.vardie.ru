@@ -75,8 +75,7 @@
         }
 
         if(!isset($_SESSION['user']['id'])){
-            die(json_encode(['error' => 'Требуется авторизация']));
-            
+            redirect('/loginPage.php');
         }
 
         $userId = $_SESSION['user']['id'] ?? null;

@@ -1,3 +1,9 @@
+<?php
+    require_once __DIR__ . '/source/helpers.php';
+    authUser();
+    $user = currentUser();
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
