@@ -207,6 +207,7 @@ header {
 
 .roulette-item {
     flex: 0 0 240px;
+    width: 240px;
     flex-shrink: 0; /* Запрещаем сжатие */
     height: 100%;
     padding: 16px;
