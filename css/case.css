@@ -141,11 +141,13 @@ header {
     flex-shrink: 0; /* Запрещаем сжатие */
     height: 180px;
     display: flex;
+    margin: 0;
+    border: none !important;
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
     background-color: rgba(35, 35, 40, 0.6);
-    border-right: 1px solid rgba(176, 74, 53, 0.3);
+    /* border-right: 1px solid rgba(176, 74, 53, 0.3); */
 }
 
 
