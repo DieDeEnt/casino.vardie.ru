@@ -166,33 +166,49 @@ async function performSingleSpin() {
 
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180;
-    const visibleItems = 5;
-    const repetitions = 3; // 3 копии массива
+    const itemWidth = 180; // Должно совпадать с CSS
+    const container = track.parentElement;
+    
+    // Отладочная информация
+    console.log('[DEBUG] Container width:', container.offsetWidth);
+    console.log('[DEBUG] Track items:', track.children.length);
+    console.log('[DEBUG] Target item ID:', targetItem.id);
 
-    // Находим индекс в оригинальном массиве
+    // 1. Найти позицию целевого элемента в оригинальном массиве
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-    // Рассчитываем позицию в средней копии
-    const middleSetStart = items.length * Math.floor(repetitions / 2);
-    const targetPosition = -(middleSetStart + targetIndex) * itemWidth + 
-                         (track.parentElement.offsetWidth / 2 - itemWidth / 2);
+    console.log('[DEBUG] Original index:', targetIndex);
 
-    // Сброс в начальную позицию
+    // 2. Рассчитать позицию в средней копии (второй из трех)
+    const middleCopyIndex = items.length + targetIndex;
+    console.log('[DEBUG] Middle copy index:', middleCopyIndex);
+
+    // 3. Центрирование элемента
+    const targetPosition = 
+        middleCopyIndex * itemWidth - // Базовая позиция 
+        (container.offsetWidth / 2) +  // Смещение к центру
+        (itemWidth / 2); // Корректировка центра элемента
+
+    console.log('[DEBUG] Target position:', targetPosition);
+
+    // 4. Сброс позиции в конец первой копии
     track.style.transition = 'none';
-    track.style.transform = `translateX(${-items.length * itemWidth}px)`;
-    
-    // Даем браузеру время применить сброс
+    const resetPosition = items.length * itemWidth;
+    track.style.transform = `translateX(-${resetPosition}px)`;
+    console.log('[DEBUG] Reset position:', -resetPosition);
+
+    // 5. Дать браузеру обновить DOM
     await new Promise(resolve => requestAnimationFrame(resolve));
     
-    // Запускаем анимацию
+    // 6. Запуск анимации
     track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${targetPosition}px)`;
+    track.style.transform = `translateX(-${targetPosition}px)`;
+    console.log('[DEBUG] Start animation to:', -targetPosition);
 
-    // Ожидаем завершения анимации
+    // 7. Ожидание завершения
     await new Promise(resolve => {
         track.addEventListener('transitionend', resolve, { once: true });
     });
+    console.log('[DEBUG] Animation finished');
 }
 
 
