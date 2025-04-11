@@ -90,7 +90,7 @@ async function performSingleSpin() {
         });
 
         const text = await response.text();
-        console.log(response);
+        console.log(text);
         if (!text) {
             throw new Error('Empty server response');
         }
