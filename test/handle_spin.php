@@ -1,5 +1,19 @@
 <?php
+// Запрет неявного вывода
+ob_start();
+header('Content-Type: application/json; charset=utf-8');
 
+// Жесткая проверка сессии
+if (session_status() === PHP_SESSION_NONE) {
+    session_start([
+        'cookie_lifetime' => 86400,
+        'read_and_close' => true
+    ]);
+}
+
+// Запрет кеширования
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Pragma: no-cache");
 require_once __DIR__ . '/../source/helpers.php';
 authUser();
 $user = currentUser();
@@ -74,3 +88,7 @@ file_put_contents('spin.log',
     date('[Y-m-d H:i:s]') . " User: {$user['id']}, Item: {$item['id']}\n", 
     FILE_APPEND
 );
+
+// Гарантированная очистка буфера
+ob_end_clean();
+die(); // Обязательный выход
