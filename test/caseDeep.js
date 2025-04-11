@@ -144,77 +144,60 @@ async function performSingleSpin() {
     }
 }
 
-// async function animateRoulette(targetItem) {
-//     const track = document.getElementById('itemsTrack');
-//     const itemWidth = 182; // Совпадает с CSS
-//     const containerWidth = track.parentElement.offsetWidth;
-    
-//     // 1. Находим индекс в исходном массиве
-//     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    
-//     // 2. Учитываем 3 копии элементов
-//     const totalClones = 3;
-//     const middleCloneSet = Math.floor(totalClones / 2) * items.length;
-    
-//     // 3. Новая формула позиции
-//     targetPosition = 
-//         (middleCloneSet + targetIndex) * itemWidth - 
-//         (containerWidth / 2) + 
-//         (itemWidth/2);
-
-//     // 4. Логирование
-//     console.log(
-//         `Индекс: ${targetIndex}, 
-//         Позиция: ${-targetPosition}px,
-//         Ширина контейнера: ${containerWidth}px`
-//     );
-
-//     // 5. Запуск анимации
-//     track.style.transition = 'none';
-//     track.style.transform = `translateX(${-containerWidth * 2}px)`;
-//     await new Promise(r => requestAnimationFrame(r));
-//     track.style.transition = `transform 9s cubic-bezier(0.33, 0, 0.67, 1)`;
-//     track.style.transform = `translateX(${-targetPosition}px)`;
-//     await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
-// }
-
-
-
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const container = track.parentElement;
     const itemWidth = 182; // Совпадает с CSS
+    const containerWidth = track.parentElement.offsetWidth;
     
-    // 1. Рассчет параметров
+    // 1. Находим индекс в исходном массиве
     const targetIndex = items.findIndex(item => item.id === targetItem.id);
-    const COPIES = 3; // 5 копий для плавности
     
-    // 2. Стартовая позиция (справа за пределами видимости)
-    const startPosition = container.offsetWidth + itemWidth;
+    // 2. Учитываем 3 копии элементов
+    const totalClones = 3;
+    const middleCloneSet = Math.floor(totalClones / 2) * items.length;
     
-    // 3. Финишная позиция (центр элемента под индикатором)
-    const targetPosition = 
-        (COPIES * items.length * itemWidth) - // Общая длина трека
-        (targetIndex * itemWidth) - // Позиция целевого элемента
-        (container.offsetWidth / 2) + // Центр контейнера
-        (itemWidth / 2); // Корректировка центра элемента
+    targetPosition = 
+    (items.length + targetIndex) * itemWidth - // Средняя копия
+    container.offsetWidth / 2 + 
+    itemWidth / 2;
 
-    // 4. Сброс в начальную позицию (справа)
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${startPosition}px)`;
-    
-    // 5. Принудительное обновление DOM
-    await new Promise(r => requestAnimationFrame(r));
-    
-    // 6. Запуск анимации влево
-    track.style.transition = `transform 5s cubic-bezier(0.2, 0.7, 0.3, 1)`;
-    track.style.transform = `translateX(-${targetPosition}px)`;
-    
-    // 7. Ожидание завершения
-    await new Promise(resolve => 
-        track.addEventListener('transitionend', resolve, { once: true })
+    if(items.length > 0) {
+        const randomIndex = Math.floor(Math.random() * items.length);
+        const middleCopyStart = items.length; // Начало средней копии
+        const startPosition = 
+            (middleCopyStart + randomIndex) * itemWidth - 
+            track.parentElement.offsetWidth / 2;
+        
+        track.style.transition = 'none';
+        track.style.transform = `translateX(-${startPosition}px)`;
+    }
+
+    // 3. Новая формула позиции
+    // targetPosition = 
+    //     (middleCloneSet + targetIndex) * itemWidth - 
+    //     (containerWidth / 2) + 
+    //     (itemWidth/2);
+
+
+
+    // 4. Логирование
+    console.log(
+        `Индекс: ${targetIndex}, 
+        Позиция: ${-targetPosition}px,
+        Ширина контейнера: ${containerWidth}px`
     );
+
+    // 5. Запуск анимации
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${-containerWidth * 2}px)`;
+    await new Promise(r => requestAnimationFrame(r));
+    track.style.transition = `transform 9s cubic-bezier(0.33, 0, 0.67, 1)`;
+    track.style.transform = `translateX(${-targetPosition}px)`;
+    await new Promise(resolve => track.addEventListener('transitionend', resolve, { once: true }));
 }
+
+
+
 
 async function fetchItemData(itemId) {
     const response = await fetch(`get_item.php?id=${itemId}`);
