@@ -175,13 +175,29 @@ function showResults(results) {
     const resultName = document.getElementById('resultName');
     const resultRarity = document.getElementById('resultRarity');
     const resultPrice = document.getElementById('resultPrice');
+
+    // Проверка наличия данных
+    if (!results || !results.length || !results[0]) {
+        showError('Не удалось получить результат');
+        resultDiv.style.display = 'none';
+        return;
+    }
+
+    const firstResult = results[0];
     
+    // Проверка обязательных полей
+    if (!firstResult.imgURL || !firstResult.name || !firstResult.rarity || !firstResult.price) {
+        showError('Некорректные данные предмета');
+        return;
+    }
+
+    // Обновление интерфейса
     resultDiv.style.display = 'block';
-    resultImage.src = results[0].image;
-    resultName.textContent = results[0].name;
-    resultRarity.className = `rarity rarity-${results[0].rarity}`;
-    resultRarity.textContent = results[0].rarity;
-    resultPrice.textContent = `$${results[0].price}`;
+    resultImage.src = firstResult.imgURL;
+    resultName.textContent = firstResult.name;
+    resultRarity.className = `rarity rarity-${firstResult.rarity.replace(/\s+/g, '-')}`;
+    resultRarity.textContent = firstResult.rarity;
+    resultPrice.textContent = `$${firstResult.price}`;
 }
 
 function updateBalance(amount) {
