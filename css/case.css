@@ -21,66 +21,67 @@
     --Master:rgb(235, 75, 75);
     --Contraband:rgb(228, 174, 57);
     --★Covert:rgb(255, 215, 0);
+
 }
 
 .Consumer{
     border-bottom: 2px solid var(--ConsumerGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--ConsumerGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--ConsumerGrade) 100%)
 }
 
 .Mil-Spec{
     border-bottom: 2px solid var(--Mil-SpecGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Mil-SpecGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Mil-SpecGrade) 100%)
 }
 
 .Industrial{
     border-bottom: 2px solid var(--IndustrialGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--IndustrialGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--IndustrialGrade) 100%)
 }
 
 .Restricted{
     border: 0 0 2px 0 solid var(--Restricted);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var( --Restricted) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var( --Restricted) 100%)
 }
 
 .Classified{
     border: 0 0 2px 0 solid var(--Classified);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Classified) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Classified) 100%)
 }
 
 .HighGrade{
     border: 0 0 2px 0 solid var(--HighGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--HighGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--HighGrade) 100%)
 }
 
 .Covert{
     border: 0 0 2px 0 solid var(--Covert);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Covert) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Covert) 100%)
 }
 
 .Base{
     border: 0 0 2px 0 solid var(--BaseGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--BaseGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--BaseGrade) 100%)
 }
 
 .Remarkable{
     border: 0 0 2px 0 solid var(--Remarkable);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Remarkable) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Remarkable) 100%)
 }
 
 .Master{
     border: 0 0 2px 0 solid var(--Master);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Master) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Master) 100%)
 }
 
 .Contraband{
     border: 0 0 2px 0 solid var(--Contraband);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Contraband) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Contraband) 100%)
 }
 
 .★Covert{
     border: 0 0 2px 0 solid var(--★Covert);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--★Covert) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--★Covert) 100%)
 }
 
 
@@ -336,9 +337,9 @@ header {
 }
 
 .result-item img {
-    max-height: 120px;
-    max-width: 180px;
-    filter: drop-shadow(0 0 10px rgba(235, 176, 144, 0.5));
+    max-height: 360px;
+    max-width: 540px;
+    /* filter: drop-shadow(0 0 10px rgba(235, 176, 144, 0.5)); */
 }
 
 /* Инвентарь */
