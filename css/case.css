@@ -206,8 +206,7 @@ header {
 }
 
 .roulette-item {
-    flex: 0 0 240px;
-    width: 240px;
+    flex: 0 0 180px;
     flex-shrink: 0; /* Запрещаем сжатие */
     height: 100%;
     padding: 16px;
@@ -235,8 +234,8 @@ header {
 
 
 .roulette-item img {
-    width: 180px;
-    height: 180px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     /* filter: drop-shadow(0 0 5px rgba(235, 176, 144, 0.3)); */
 }
