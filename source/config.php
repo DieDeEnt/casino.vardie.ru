@@ -1,5 +1,5 @@
 <?php
-    //const DB_HOST = "localhost";
+
     const DB_HOST = "localhost";
     
     const DB_PORT = "3306";
