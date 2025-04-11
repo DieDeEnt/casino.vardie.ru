@@ -145,23 +145,52 @@ async function performSingleSpin() {
 }
 
 // Обновленная функция анимации
+// async function animateRoulette(targetItem) {
+//     const track = document.getElementById('itemsTrack');
+//     const itemWidth = 180;
+//     const containerWidth = track.parentElement.offsetWidth;
+    
+//     // Фильтрация уникальных ID
+//     const uniqueItems = [...new Set(items.map(i => i.id))];
+//     const targetIndex = uniqueItems.indexOf(targetItem.id);
+
+//     // Новая формула:
+//     const targetPosition = 
+//         (containerWidth * 2) - // Стартовое смещение
+//         (targetIndex * itemWidth) - 
+//         (itemWidth / 2);
+
+//     track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
+//     track.style.transform = `translateX(${-targetPosition}px)`;
+// }
+
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
-    const itemWidth = 180;
-    const containerWidth = track.parentElement.offsetWidth;
+    const itemWidth = 180; // Должно совпадать с CSS
+    const visibleItems = 5; // Количество видимых предметов
     
-    // Фильтрация уникальных ID
-    const uniqueItems = [...new Set(items.map(i => i.id))];
-    const targetIndex = uniqueItems.indexOf(targetItem.id);
+    // 1. Находим индекс целевого предмета
+    const targetIndex = items.findIndex(item => item.id === targetItem.id);
+    
+    // 2. Рассчитываем позицию для плавной остановки
+    const repetitions = 3; // Количество повторений элементов
+    const middleSetStart = items.length * Math.floor(repetitions / 2);
+    const targetPosition = -(middleSetStart + targetIndex) * itemWidth + (itemWidth * visibleItems)/2;
 
-    // Новая формула:
-    const targetPosition = 
-        (containerWidth * 2) - // Стартовое смещение
-        (targetIndex * itemWidth) - 
-        (itemWidth / 2);
+    // 3. Сброс анимации
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${-items.length * itemWidth}px)`;
+    
+    // 4. Запуск анимации
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    
+    track.style.transition = `transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)`;
+    track.style.transform = `translateX(${targetPosition}px)`;
 
-    track.style.transition = `transform ${Math.min(5000, items.length * 50)}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    track.style.transform = `translateX(${-100}px)`;
+    // 5. Ожидание завершения
+    await new Promise(resolve => {
+        track.addEventListener('transitionend', resolve, { once: true });
+    });
 }
 
 
