@@ -11,30 +11,28 @@ $pdo = setPDO();
 try {
     // Система весов
     $rarityWeights = [
-        'Consumer Grade'=>11,
-        'Mil-Spec Grade'=>10,
-        'Industrial Grade'=>8,
-        'Restricted'=>8,
-        'Classified'=>8,
-        'High Grade'=>8,
-        'Covert'=>7,
-
-        // 21
+        'Consumer Grade'=>22,
+        'Mil-Spec Grade'=>16,
+        'Industrial Grade'=>13,
+        'Restricted'=>11,
+        'Classified'=>9,
+        'High Grade'=>7,
+        'Covert'=>5,
         // 'StatTrak™ Consumer Grade'=>5,
-        'StatTrak™ Mil-Spec Grade'=>4,
-        'StatTrak™ Industrial Grade'=>4,
-        'StatTrak™ Restricted'=>4,
+        'StatTrak™ Mil-Spec Grade'=>8,
+        'StatTrak™ Industrial Grade'=>8,
+        'StatTrak™ Restricted'=>5,
         'StatTrak™ Classified'=>4,
-        'StatTrak™ High Grade'=>4,
+        // 'StatTrak™ High Grade'=>4,
         // 'StatTrak™ Covert'=>0,
-        '★ Covert'=>2,
+        '★ Covert'=>1,
         // 'Base Grade'=>0,
-        'Remarkable'=>8,
+        // 'Remarkable'=>8,
         // 'Superior'=>0,
         // 'Distinguished'=>0,
         // 'Extraordinary'=>0,
         // 'Exceptional'=>0,
-        'Master'=>10,
+        'Master'=>4,
         // 'Exotic'=>0,
         // 'Contraband' =>0
 
@@ -56,10 +54,10 @@ try {
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
     // Добавление в инвентарь
     $stmt = $pdo->prepare("INSERT INTO usersInventory (userId, itemId) VALUES (?, ?)");
-    $stmt->execute([$_SESSION['user'], $item['id']]);
+    $stmt->execute([$user['id'], $item['id']]);
 
     echo json_encode(['itemId' => $item['id']]);
     
 } catch (PDOException $e) {
-    die(json_encode(['error' => $e->getMessage(),$_SESSION['user']['id'],$selectedRarity,$item['id']]));
+    die(json_encode(['error' => $e->getMessage(),$user['id'],$selectedRarity,$item['id']]));
 }
