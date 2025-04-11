@@ -214,32 +214,40 @@ async function performSingleSpin() {
 async function animateRoulette(targetItem) {
     const track = document.getElementById('itemsTrack');
     const itemsCount = items.length;
-    const itemWidth = 180; // Ширина одного элемента
+    const itemWidth = 180;
     
-    // Расчет позиции в дублированном массиве
+    // Находим индекс целевого элемента
     const targetIndex = items.findIndex(i => i.id === targetItem.id);
-    const virtualPosition = itemsCount * 2 + targetIndex; // Центральная копия
     
-    // Сброс анимации
+    // Рассчитываем позиции
+    const startPosition = -itemsCount * itemWidth; // Центр дублированных элементов
+    const virtualPosition = itemsCount * 2 + targetIndex; // Позиция в виртуальном пространстве
+    
+    // Сброс анимации и установка начальной позиции
     track.style.transition = 'none';
-    track.style.transform = `translateX(0px)`;
-
-    // Запуск анимации с задержкой
-    await new Promise(resolve => setTimeout(resolve, 50));
+    track.style.transform = `translateX(${startPosition}px)`;
+    
+    // Принудительный рефлоу для применения стилей
+    await new Promise(resolve => requestAnimationFrame(resolve));
     
     // Параметры анимации
-    const startPosition = -itemsCount * itemWidth;
     const targetPosition = -(virtualPosition * itemWidth);
     const distance = Math.abs(targetPosition - startPosition);
     const duration = Math.min(Math.max(distance / 2, 3000), 5000);
-
+    
+    // Запуск анимации
     track.style.transition = `transform ${duration}ms cubic-bezier(0.25, 0.1, 0.25, 1)`;
     track.style.transform = `translateX(${targetPosition}px)`;
-
+    
     // Ожидание завершения анимации
     await new Promise(resolve => {
         track.addEventListener('transitionend', resolve, { once: true });
     });
+    
+    // Мгновенный сброс к основной позиции
+    const resetPosition = -(itemsCount + targetIndex) * itemWidth;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(${resetPosition}px)`;
 }
 
 
