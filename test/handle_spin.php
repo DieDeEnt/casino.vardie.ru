@@ -59,6 +59,7 @@ try {
     $stmt->execute([$selectedRarity]);
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    
     if (!$item) {
         throw new RuntimeException("Предмет с редкостью $selectedRarity не найден");
     }
