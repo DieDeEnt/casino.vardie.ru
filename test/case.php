@@ -34,13 +34,13 @@
         </header>
         
         <div class="case-container">
-            <div class="case-display">
+            <!-- <div class="case-display">
                 <img src="/icon/caseImg1.png" alt="CS:GO Case" class="case-image" id="caseImage">
                 <h2 class="case-name">KukenCase</h2>
                 <p class="case-price">Prise: 10$</p>
                 <div id="casesOpened"></div>
                 <div id="totalValue"></div>
-            </div>
+            </div> -->
 
             <div class="roulette-section">
                 <div class="roulette-header">
