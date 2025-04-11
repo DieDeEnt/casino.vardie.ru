@@ -26,62 +26,62 @@
 
 .Consumer{
     border-bottom: 2px solid var(--ConsumerGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--ConsumerGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--ConsumerGrade) 200%)
 }
 
 .Mil-Spec{
     border-bottom: 2px solid var(--Mil-SpecGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Mil-SpecGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Mil-SpecGrade) 200%)
 }
 
 .Industrial{
     border-bottom: 2px solid var(--IndustrialGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--IndustrialGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--IndustrialGrade) 200%)
 }
 
 .Restricted{
     border: 0 0 2px 0 solid var(--Restricted);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var( --Restricted) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var( --Restricted) 200%)
 }
 
 .Classified{
     border: 0 0 2px 0 solid var(--Classified);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Classified) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Classified)  200%)
 }
 
 .HighGrade{
     border: 0 0 2px 0 solid var(--HighGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--HighGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--HighGrade)   200%)
 }
 
 .Covert{
     border: 0 0 2px 0 solid var(--Covert);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Covert) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Covert)      200%)
 }
 
 .Base{
     border: 0 0 2px 0 solid var(--BaseGrade);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--BaseGrade) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--BaseGrade)   200%)
 }
 
 .Remarkable{
     border: 0 0 2px 0 solid var(--Remarkable);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Remarkable) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Remarkable)  200%)
 }
 
 .Master{
     border: 0 0 2px 0 solid var(--Master);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Master) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Master)     200%)
 }
 
 .Contraband{
     border: 0 0 2px 0 solid var(--Contraband);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--Contraband) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--Contraband) 200%)
 }
 
 .★Covert{
     border: 0 0 2px 0 solid var(--★Covert);
-    background: linear-gradient(rgba(30, 30, 41, 0.25) 20%, var(--★Covert) 100%)
+    background: linear-gradient(rgba(30, 30, 41, 0.25) 0%, var(--★Covert)   200%)
 }
 
 
