@@ -30,7 +30,7 @@ function initRoulette() {
     
     track.innerHTML = duplicatedItems.map(item => `
         <div class="roulette-item ${item.rarity}">
-            <img src="${item.imgURL}" alt="${item.name}">
+            <img src="${item.image}" alt="${item.name}">
             <div class="item-name">${item.name}</div>
             <div class="item-rarity">${item.rarity}</div>
         </div>
@@ -94,12 +94,12 @@ async function performSingleSpin() {
         // Проверьте, что данные приходят корректно
         console.log('Server response:', data); 
         
-        if (!data.itemId) {
+        if (!data.item_id) {
             throw new Error('Item ID не получен');
         }
         
         // Получите полные данные предмета по ID
-        const item = await fetchItemData(data.itemId); 
+        const item = await fetchItemData(data.item_id); 
         return item;
         
     } catch (error) {
@@ -148,7 +148,7 @@ function showResults(results) {
     const resultPrice = document.getElementById('resultPrice');
     
     resultDiv.style.display = 'block';
-    resultImage.src = results[0].imgURL;
+    resultImage.src = results[0].image;
     resultName.textContent = results[0].name;
     resultRarity.className = `rarity rarity-${results[0].rarity}`;
     resultRarity.textContent = results[0].rarity;
@@ -168,7 +168,7 @@ async function updateInventory() {
         const container = document.getElementById('inventory');
         container.innerHTML = inventory.map(item => `
             <div class="inventory-item ${item.rarity}">
-                <img src="${item.imgURL}" alt="${item.name}">
+                <img src="${item.image}" alt="${item.name}">
                 <div class="item-name">${item.name}</div>
             </div>
         `).join('');
